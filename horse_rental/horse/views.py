@@ -5,5 +5,9 @@ def main(request):
     return render(request, 'horse/main.html')
 
 
-def about(request):
-    return render(request, 'horse/about.html')
+def service(request):
+    return render(request, 'horse/service.html')
+
+
+def contact(request):
+    return render(request, 'horse/contact.html')

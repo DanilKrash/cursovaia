@@ -1,7 +1,70 @@
-{% extends 'horse/layout.html' %}
-
+{% extends 'layout.html' %}
+{% load static %}
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-    <h1>Главная страница</h1>
+    <div class="banner" style="background-image: linear-gradient(90deg,rgba(244,240,233,0.79) 30%,rgba(232,244,233,0) 100%), url('{% static 'img/fon.png' %}')!important;">
+        <div class="banner_content">
+            <h1 class="txt_banner">Получите удовольствия
+                от конных прогулок</h1>
+            <p class="txt_banner2">Прогулки верхом на
+                лошади по лесу в черте города</p>
+        </div>
+    </div>
+    <div class="about_us">
+        <div class="txt_about_us">
+            <h1 style="font-size: 42px; width: auto;" class="txt_banner">Посмотрите фильм о нашем конном дворe</h1>
+            <hr id="line">
+            <p style="width: auto; margin-top: 15px" class="txt_banner2">Вы увидите как у нас все устроено, кто наши люди, лошади и что вас ждет.</p>
+        </div>
+        <div class="frame_video">
+            <iframe width="1050" height="591"
+                    src="https://www.youtube.com/embed/L5UrjQYZH6g?start=1"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    <div class="fotos-about_us">
+        <div style="padding-bottom: 45px" class="txt_about_us">
+            <h1 style="font-size: 42px; width: auto;" class="txt_banner">Наши инструктора</h1>
+            <hr id="line">
+            <p style="width: auto; margin-top: 15px" class="txt_banner2">Это профессионалы своего дела!</p>
+        </div>
+
+        <div class="slider-container">
+            <div class="menu">
+                <label for="slide-dot-1"></label>
+                <label for="slide-dot-2"></label>
+                <label for="slide-dot-3"></label>
+                <label for="slide-dot-4"></label>
+            </div>
+            <input id="slide-dot-1" type="radio" name="slides" checked>
+            <div style="background-image: url('{% static 'img/trener1.jpg' %}');" class="slide slide-1"></div>
+            <input id="slide-dot-2" type="radio" name="slides">
+            <div style="background-image: url('{% static 'img/trener2.jpg' %}');" class="slide slide-2"></div>
+            <input id="slide-dot-3" type="radio" name="slides">
+            <div style="background-image: url('{% static 'img/trener3.jpg' %}');" class="slide slide-3"></div>
+            <input id="slide-dot-4" type="radio" name="slides">
+            <div style="background-image: url('{% static 'img/trener4.jpg' %}');" class="slide slide-4"></div>
+        </div>
+    </div>
+
+    <div class="waiting">
+        <img style="margin-right: 90px" src="{% static 'img/test7.png' %}" alt="">
+        <div style="padding: 50px 0 50px 50px" class="txt_about_us">
+            <h2 class="txt_banner3">ВЕРХОВЫЕ ПРОГУЛКИ</h2>
+            <h1 style="font-size: 42px; width: 408px" class="txt_banner">Что тебя ждет во время прогулки</h1>
+            <hr style="margin: 0;" id="line">
+            <p style="margin-top: 30px; width: 500px; line-height: 2.5em" class="txt_banner2">— Инструктаж безопасности <br>
+            — Знакомство с животным <br>
+            — Знакомство с амуницией <br>
+            — Тренировочный заезд на территории <br>
+
+            — Прогулка по берёзовому лесу <br>
+
+            — Возможность воспользоваться услугами фотографа</p>
+        </div>
+    </div>
 {% endblock %}
