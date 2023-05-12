@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}Услуги "Рысак"{% endblock %}
+
+{% block content %}
+    <div class="banner" style="background-image: linear-gradient(90deg,rgba(244,240,233,0.9) 30%,rgba(244,240,233,0) 100%), url('{% static 'img/fon_serv.jpg' %}')!important; height: auto; padding-bottom: 119px; padding-top: 119px;">
+        <div class="banner_content">
+            <h1 class="txt_banner">Услуги</h1>
+            <p style="width: 515px;" class="txt_banner2">Мы постарались сделать все, чтобы вы замечательно провели время.</p>
+        </div>
+    </div>
+    {% for service in service_list %}
+        <div class="service_list">
+            <a style="text-decoration: none; color: black; margin: 0" href="{% url 'hor:detail' service.pk %}">
+                {% thumbnail service.service_img '400x300' as im %}
+                    <img class="img_service" src="{{im.url}}" alt="">
+                {% endthumbnail %}
+                <div class="texts_service">
+                    <p class="txt_service">{{ service.service_name }}</p>
+                    <p style="font-size: 42px" class="txt_service">{{ service.service_sell }}</p>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

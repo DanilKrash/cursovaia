@@ -17,9 +17,9 @@
 
     <header class="header">
         <div class="header_content">
-            <a class="menu_header" href="{% url 'services' %}">Услуги</a>
-            <a href="{% url 'main' %}"> <img style="width: 151px; height: 62px" src="{% static 'img/logo.png' %}" alt=""> </a>
-            <a class="menu_header" href="{% url 'contacts' %}">Контакты</a>
+            <a class="menu_header" href="{% url 'hor:services' %}">Услуги</a>
+            <a href="{% url 'main:main' %}"> <img style="width: 151px; height: 62px" src="{% static 'img/logo.png' %}" alt=""> </a>
+
         </div>
     </header>
     {% block content %}
@@ -33,9 +33,9 @@
                     <br> © 2023 «Прокат лошадей Рысак»</p>
             </div>
             <div class="footer_block">
-                <a class="menu_footer" href="{% url 'main' %}">Главная</a>
-                <a class="menu_footer" href="{% url 'services' %}">Услуги</a>
-                <a class="menu_footer" href="{% url 'contacts' %}">Контакты</a>
+                <a class="menu_footer" href="{% url 'main:main' %}">Главная</a>
+                <a class="menu_footer" href="{% url 'hor:services' %}">Услуги</a>
+
             </div>
             <div class="footer_block">
                 <p class="txt_menu">Мы в соцсетях:</p>

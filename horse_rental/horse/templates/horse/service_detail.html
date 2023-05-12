@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block title %}Информация о прокате{% endblock %}
+
+{% block content %}
+    <div class="container_service">
+        <p>Тренер: {{ service.sername }}</p>
+        <p>Лошадь: {{ service.breed }}</p>
+    </div>
+
+{% endblock %}

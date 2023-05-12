@@ -239,3 +239,37 @@ body, html{
     font-size: 18px;
 }
 
+/*Service*/
+
+.service_list{
+    display: flex;
+    padding-top: 110px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img_service{
+    border-radius: 50px;
+}
+
+.texts_service{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.txt_service{
+    text-decoration: none;
+    font-size: 26px;
+    padding-bottom: 20px;
+    font-family: 'Alice',Georgia,"Times New Roman",serif;
+    margin: 0;
+}
+
+/*Service_detail*/
+
+.container_service{
+    display: flex;
+    flex-direction: column;
+    margin-top: 115px;
+}
