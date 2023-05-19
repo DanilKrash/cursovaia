@@ -1,4 +1,4 @@
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, PermissionsMixin, UserManager
 from django.db import models
 
@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(max_length=30, unique=True, db_index=True, blank=False)
+    email = models.EmailField(max_length=128, unique=True, db_index=True, blank=False)
     is_active = models.BooleanField(blank=False, default=False)
 
     USERNAME_FIELD = 'username'

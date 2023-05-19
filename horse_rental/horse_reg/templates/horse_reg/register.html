@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="fon_register" style="background-image: linear-gradient(90deg,rgba(244,240,233,0.9) 30%,rgba(244,240,233,0) 100%), url('{% static 'img/fonreg.jpg' %}')!important; height: auto; padding-bottom: 119px; padding-top: 119px;">
+        <form action="." method="post">
+            {% csrf_token %}
+            <p class="txt_service">{{ form.as_p }}</p>
+            <input type="submit" value="Зарегистрироваться" class="">
+        </form>
+    </div>
+{% endblock %}

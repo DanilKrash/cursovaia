@@ -273,3 +273,14 @@ body, html{
     flex-direction: column;
     margin-top: 115px;
 }
+
+.fon_register{
+    display: flex;
+    width: auto;
+    height: 948px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-content: center;
+    margin-top: 115px;
+    align-items: center;
+}
