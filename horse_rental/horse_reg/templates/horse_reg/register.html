@@ -1,12 +1,18 @@
 {% extends 'layout.html' %}
 {% load static %}
 
+{% block title %}Регистрация{% endblock %}
+
+
 {% block content %}
     <div class="fon_register" style="background-image: linear-gradient(90deg,rgba(244,240,233,0.9) 30%,rgba(244,240,233,0) 100%), url('{% static 'img/fonreg.jpg' %}')!important; height: auto; padding-bottom: 119px; padding-top: 119px;">
-        <form action="." method="post">
-            {% csrf_token %}
-            <p class="txt_service">{{ form.as_p }}</p>
-            <input type="submit" value="Зарегистрироваться" class="">
+        <h class="txt_register">Заполните все поля чтобы пройти регистрацию</h>
+        <form action="." class="block_fields" method="post">
+            <div style="display: flex; flex-direction: column; padding: 35px 0 60px 0;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn_register" type="submit" value="Зарегистрироваться">
+            </div>
         </form>
     </div>
 {% endblock %}

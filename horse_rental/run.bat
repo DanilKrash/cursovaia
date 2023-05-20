@@ -1,0 +1,2 @@
+set DJANGO_EMAIL_HOST_PASSWORD=MeUbhb5cuFZP5h7VHaP3
+python manage.py runserver

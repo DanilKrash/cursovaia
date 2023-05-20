@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from horse_reg.forms import CustomUserRegister
 from horse_reg.models import CustomUser
@@ -19,4 +19,5 @@ class RegisterView(CreateView):
             send_mail(subject='Регистрация на сайте', message='Для подтверждения перейдите по ссылке', from_email=settings.EMAIL_HOST_USER, recipient_list=[request.POST.get('email')])
         result = super().post(request, *args, **kwargs)
         return result
+
 
