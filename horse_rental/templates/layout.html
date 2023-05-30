@@ -17,15 +17,20 @@
 
     <header class="header">
         <div class="header_content">
-            {% if user.is_authenticated %}
-                <a href="% url logaut %">Выйти</a>
-            {% else %}
-                <a href="% url login.login %">Войти</a>
-            {%endif%}
-            User: {{ user }}
-            <a class="menu_header" href="{% url 'hor:services' %}">Услуги</a>
-            <a href="{% url 'main:main' %}"> <img style="width: 151px; height: 62px" src="{% static 'img/logo.png' %}" alt=""> </a>
-            <a class="menu_header" href="{% url 'reg:register' %}">Регистрация</a>
+            <nav style="display: flex; align-items: center">
+                <a href="{% url 'main:main' %}"> <img style="width: 151px; height: 62px" src="{% static 'img/logo.png' %}" alt=""> </a>
+                <a class="menu_header" href="{% url 'hor:services' %}">Услуги</a>
+            </nav>
+
+            <div style="display: flex; align-items: center">
+                <a style="padding: 0" class="menu_header" href="{% url 'reg:register' %}">Регистрация/ </a>
+                {% if user.is_authenticated %}
+                    <a style="padding: 0" class="menu_header" href="{% url 'reg:logout' %}">Выйти</a>
+                    <p style="color: white; padding-left: 30px">Вошли как: {{ user }}</p>
+                {% else %}
+                    <a style="padding: 0" class="menu_header" href="{% url 'reg:login' %}">Войти</a>
+                {%endif%}
+            </div>
         </div>
     </header>
     {% block content %}

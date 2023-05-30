@@ -1,10 +1,25 @@
 {% extends 'layout.html' %}
+{% load thumbnail %}
 {% block title %}Информация о прокате{% endblock %}
 
 {% block content %}
     <div class="container_service">
-        <p>Тренер: {{ service.sername }}</p>
-        <p>Лошадь: {{ service.breed }}</p>
+        <p style="font-size: 42px; width: auto" class="txt_banner">{{ service.service_name }}</p>
+        <div class="block_info">
+            <div class="foto_info">
+                {% thumbnail service.service_img '600' crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="">
+                {% endthumbnail %}
+            </div>
+            <div class="txt_info_serv">
+                <p style="width: auto" class="txt_banner2">{{ service.description }}</p>
+                <hr style="width: 100%">
+                <p style="padding: 0" class="txt_service">Цена: {{ service.service_sell }}</p>
+                <label>
+                    <input class="btn_buy" value="Заказать">
+                </label>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

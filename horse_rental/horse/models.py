@@ -88,10 +88,10 @@ class Services(models.Model):
     service_name = models.CharField(max_length=30, verbose_name='Наименование')
     service_img = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
     service_sell = models.CharField(max_length=50, verbose_name='Цена')
-    breed = models.ForeignKey(Horse, on_delete=models.CASCADE, verbose_name='Порода')
-    sername = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name='Тренер')
-    training_name = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
-    route_name = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Маршрут')
+    horse = models.ForeignKey(Horse, on_delete=models.CASCADE, verbose_name='Порода')
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name='Тренер')
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
+    description = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
 
     class Meta:
         ordering = ('service_name',)

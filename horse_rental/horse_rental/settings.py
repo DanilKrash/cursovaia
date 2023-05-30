@@ -147,7 +147,8 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'danil22092004@mail.ru'
 EMAIL_HOST_PASSWORD = os.environ['DJANGO_EMAIL_HOST_PASSWORD']
 
-LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
