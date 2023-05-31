@@ -11,15 +11,45 @@
                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="">
                 {% endthumbnail %}
             </div>
-            <div class="txt_info_serv">
-                <p style="width: auto" class="txt_banner2">{{ service.description }}</p>
-                <hr style="width: 100%">
-                <p style="padding: 0" class="txt_service">Цена: {{ service.service_sell }}</p>
-                <label>
-                    <input class="btn_buy" value="Заказать">
-                </label>
+            <div class="more_info_serv">
+                <div class="txt_info_serv">
+                    <p style="width: auto" class="txt_banner2">{{ service.description }}</p>
+                </div>
+                <div class="txt_info_serv">
+                    <p style="padding: 0" class="txt_service">Цена: {{ service.service_sell }}</p>
+                    <label>
+                        <button class="btn_buy">Заказать</button>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
+    <div class="comments">
+        {% if comments.count == 1 %}
+            <p style="font-size: 18px">{{ comments.count }} Комментарий</p>
 
+        {% elif comments.count == 2 or comments.count == 3 or comments.count  == 4 %}
+            <p style="font-size: 18px">{{ comments.count }} Комментария</p>
+
+        {% elif comments.count > 4 %}
+            <p style="font-size: 18px">{{ comments.count }} Комментариев</p>
+        {% endif %}
+
+        {% if user.is_active %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="footer_comment">
+                    <button class="comment_send" type="submit">Оставить комментарий</button>
+                </div>
+            </form>
+        {% else %}
+            <p>Для того, чтобы оставить комментарий, нужно авторизоваться</p>
+        {% endif %}
+
+        {% for comment in comments %}
+            <h style="display: flex"><p style="padding-right: 4px; font-size: 15px; margin: 0 0 5px 0">{{ comment.user }}</p> <p style="font-size: 14px; color: #AAAAAA; margin: 0 0 5px 0">{{ comment.date }}</p></h> <br>
+            <p style="font-size: 17px; margin: 0 0 15px 0">{{ comment.text }}</p> <br>
+        {% endfor %}
+    </div>
 {% endblock %}

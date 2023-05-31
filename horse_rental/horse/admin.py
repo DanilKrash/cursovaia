@@ -1,5 +1,5 @@
 from django.contrib import admin
-from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services
+from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments
 
 
 @admin.register(Complexity)
@@ -47,6 +47,16 @@ class RouteAdmin(admin.ModelAdmin):
 class ServicesAdmin(admin.ModelAdmin):
     list_display = ('service_name', 'service_img')
     search_fields = ('service_name', )
+
+
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date', 'text', 'services')
+    search_fields = ('user', )
+    list_filter = ('date', )
+    readonly_fields = ('date', )
+    list_editable = ('text', )
+    fields = ('user', 'date', 'text', 'services')
 
 
 

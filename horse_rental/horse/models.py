@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Complexity(models.Model):
@@ -100,3 +103,18 @@ class Services(models.Model):
 
     def __str__(self):
         return self.service_name
+
+
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    services = models.ForeignKey(Services, on_delete=models.CASCADE, verbose_name='Услуга')
+    text = models.TextField(blank=False, verbose_name='Текст')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ['-date', ]
+
+    def __str__(self):
+        return '{}'.format(self.user)
