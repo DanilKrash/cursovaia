@@ -2,12 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=PT+Serif&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=Noto+Sans+Georgian:wght@100&family=PT+Serif&display=swap');
 
-body, html{
+*{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+}
+
+body, html{
     font-family: Open Sans,Arial,sans-serif;
-    width: 100%;
-    height: 100%;
 }
 
 /*Header*/
@@ -153,6 +155,7 @@ body, html{
     display: flex;
     flex-direction: column;
     padding-bottom: 15px;
+    align-items: center;
 }
 
 #line{
@@ -239,6 +242,12 @@ body, html{
     padding-bottom: 54px;
 }
 
+.txt_about_us1{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+}
+
 .txt_banner3{
     color: #666;
     font-family: Open Sans,Arial,sans-serif;
@@ -246,6 +255,13 @@ body, html{
 }
 
 /*Service*/
+
+.blocks_services{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
 
 .service_list{
     display: flex;

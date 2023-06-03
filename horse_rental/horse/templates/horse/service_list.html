@@ -10,17 +10,28 @@
             <p style="width: 515px;" class="txt_banner2">Мы постарались сделать все, чтобы вы замечательно провели время.</p>
         </div>
     </div>
-    {% for service in service_list %}
-        <div class="service_list">
-            <a style="text-decoration: none; color: black; margin: 0" href="{% url 'hor:detail' service.pk %}">
-                {% thumbnail service.service_img '400x300' as im %}
-                    <img class="img_service" src="{{im.url}}" alt="">
-                {% endthumbnail %}
-                <div class="texts_service">
-                    <p class="txt_service">{{ service.service_name }}</p>
-                    <p style="font-size: 42px" class="txt_service">{{ service.service_sell }}</p>
-                </div>
-            </a>
-        </div>
-    {% endfor %}
+    <div class="blocks_services">
+        {% for service in page %}
+            <div class="service_list">
+                <a style="text-decoration: none; color: black; margin: 0" href="{% url 'hor:detail' service.pk %}">
+                    {% thumbnail service.service_img '400x300' as im %}
+                        <img class="img_service" src="{{im.url}}" alt="">
+                    {% endthumbnail %}
+                    <div class="texts_service">
+                        <p class="txt_service">{{ service.service_name }}</p>
+                        <p style="font-size: 42px" class="txt_service">{{ service.service_sell }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div style="display: flex; align-items: center;">
+        {% if page.has_previous %}
+            <a href="{% url 'hor:services' page.previous_page_number %}">< </a>
+        {% endif %}
+        <p> {{page.number}} </p>
+        {% if page.has_next %}
+            <a href="{% url 'hor:services' page.next_page_number %}"> ></a>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,16 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Services, Comments
 from horse.forms import CommentForm
+from django.core.paginator import Paginator, EmptyPage
 
 
 def main(request):
     return render(request, 'horse/main.html')
 
 
-def service_list_view(request):
+def service_list_view(request, page_num=1):
     services = Services.objects.all()
-    objects_count = Services.objects.count()
-    context = {'service_list': services, 'objects_count': objects_count}
+    paginator = Paginator(services, 3)
+    try:
+        page_object = paginator.page(page_num)
+    except EmptyPage:
+        if page_num < 1:
+            page_object = paginator.page(1)
+        else:
+            page_object = paginator.page(paginator.num_pages)
+    context = {'page': page_object}
     return render(request, 'horse/service_list.html', context)
 
 
