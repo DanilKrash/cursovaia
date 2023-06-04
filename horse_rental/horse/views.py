@@ -10,7 +10,7 @@ def main(request):
 
 def service_list_view(request, page_num=1):
     services = Services.objects.all()
-    paginator = Paginator(services, 3)
+    paginator = Paginator(services, 1)
     try:
         page_object = paginator.page(page_num)
     except EmptyPage:
@@ -18,7 +18,9 @@ def service_list_view(request, page_num=1):
             page_object = paginator.page(1)
         else:
             page_object = paginator.page(paginator.num_pages)
-    context = {'page': page_object}
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page': page_object, 'page_obj': page_obj}
     return render(request, 'horse/service_list.html', context)
 
 

@@ -213,7 +213,7 @@ body, html{
     border-radius: 50px;
     margin: 0 0.2em 1em;
 }
-.menu label:hover,.menu label:focus {
+.menu label:hover {
     background: #264059;
 }
 .slide {
@@ -228,6 +228,12 @@ body, html{
     background-position: 50% 50%;
     transition: left 0s 0.75s;
 }
+
+
+#slide-dot-1:focus ~ label[for="slide-dot-1"]{
+    opacity: 0;
+}
+
 [id^="slide"]:checked + .slide {
     left: 0;
     z-index: 80;
@@ -286,6 +292,50 @@ body, html{
     padding-bottom: 20px;
     font-family: 'Alice',Georgia,"Times New Roman",serif;
     margin: 0;
+}
+
+.service_page{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 54px;
+}
+
+.page_num{
+    color: #242424;
+    text-decoration: none;
+    padding: 10px;
+    transition: ease 0.5s;
+    font-size: 17px;
+    text-align: center;
+    border-radius: 50%;
+    min-width: 40px;
+    margin-left: 3px;
+}
+
+#next:hover{
+    transform: translateX(10%);
+    background: none;
+    opacity: .7;
+}
+#prev:hover{
+    transform: translateX(-10%);
+    background: none;
+    opacity: .7;
+}
+
+.page_num:hover{
+    background: #f1f1f5;
+}
+.page_active{
+    background: #264059;
+    min-width: 40px;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 50%;
+    opacity: .8;
+    font-size: 17px;
+    margin-left: 3px;
 }
 
 /*Service_detail*/
@@ -365,6 +415,7 @@ body, html{
     color: white;
     padding: 17px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .comment_send:hover{

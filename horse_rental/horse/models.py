@@ -94,7 +94,7 @@ class Services(models.Model):
     horse = models.ForeignKey(Horse, on_delete=models.CASCADE, verbose_name='Порода')
     trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name='Тренер')
     training = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
-    description = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
 
     class Meta:
         ordering = ('service_name',)

@@ -25,13 +25,20 @@
             </div>
         {% endfor %}
     </div>
-    <div style="display: flex; align-items: center;">
+    <div class="service_page">
         {% if page.has_previous %}
-            <a href="{% url 'hor:services' page.previous_page_number %}">< </a>
+            <a class="page_num" id="prev" href="{% url 'hor:services' page.previous_page_number %}"> Предыдущая </a>
         {% endif %}
-        <p> {{page.number}} </p>
+        {% for p in page_obj.paginator.page_range %}
+            {% if page.number == p %}
+                <p class="page_active">{{ p }}</p>
+            {% else %}
+                <a class="page_num" href="{% url 'hor:services' p %}">{{ p }}</a>
+            {% endif %}
+        {% endfor %}
         {% if page.has_next %}
-            <a href="{% url 'hor:services' page.next_page_number %}"> ></a>
+            <a class="page_num" id="next" href="{% url 'hor:services' page.next_page_number %}"> Следующая</a>
         {% endif %}
     </div>
+
 {% endblock %}
