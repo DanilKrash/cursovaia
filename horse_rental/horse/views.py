@@ -9,8 +9,12 @@ def main(request):
 
 
 def service_list_view(request, page_num=1):
-    services = Services.objects.all()
-    paginator = Paginator(services, 1)
+    search = request.GET.get('search', '')
+    if search:
+        services = Services.objects.filter(service_name__icontains=search)
+    else:
+        services = Services.objects.all()
+    paginator = Paginator(services, 3)
     try:
         page_object = paginator.page(page_num)
     except EmptyPage:
@@ -37,7 +41,11 @@ def service_detail_view(request, service_id):
             form = CommentForm
     else:
         form = CommentForm()
-        context = {'service': serv}
     return render(request, 'horse/service_detail.html', {'service': serv, 'comments': comments, 'form': form})
+
+
+def service_order_view(request, order_id):
+    order = get_object_or_404(Services, id=order_id)
+    return render(request, 'horse/service_order.html', {'order': order})
 
 

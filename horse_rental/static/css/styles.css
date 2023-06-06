@@ -269,6 +269,38 @@ body, html{
 
 }
 
+.search_form{
+    display: flex;
+    flex: 0 1 428px;
+}
+
+.search_service{
+    width: 200px;
+    height: 30px;
+    border: 1px solid hsl(0, 0%, 18.82%);
+    border-radius: 20px 0 0 20px;
+    padding: 0 4px 0 16px;
+    font-size: 16px;
+    border-right: none;
+    flex: 1;
+    box-shadow: inset 0 1px 2px hsla(0, 0%, 0%, 0);
+    color: black;
+}
+
+.btn_search{
+    border: 1px solid hsl(0, 0%, 18.82%);
+    border-radius: 0 20px 20px 0;
+    padding: 0 16px 0 16px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+.btn_search:hover{
+    background: #cbcbcb;
+}
+
 .service_list{
     display: flex;
     padding-top: 110px;

@@ -7,8 +7,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('services/', include('horse.urls', namespace='hor')),
-    path('', include('horse.urls', namespace='main')),
     path('auth/', include('horse_reg.urls', namespace='reg')),
+    path('', include('horse.urls', namespace='main')),
 ]
 
 if settings.DEBUG:

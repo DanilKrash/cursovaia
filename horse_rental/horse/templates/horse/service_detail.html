@@ -13,12 +13,12 @@
             </div>
             <div class="more_info_serv">
                 <div class="txt_info_serv">
-                    <p style="width: auto" class="txt_banner2">{{ service.description }}</p>
+                    <p style="width: auto" class="txt_banner2">{{ service.description.description }}</p>
                 </div>
                 <div class="txt_info_serv">
                     <p style="padding: 0" class="txt_service">Цена: {{ service.service_sell }}</p>
                     <label>
-                        <button class="btn_buy">Заказать</button>
+                        <a href="/services/{{order.pk}}/"><button class="btn_buy">Заказать</button></a>
                     </label>
                 </div>
             </div>

@@ -22,6 +22,11 @@
                 <a class="menu_header" href="{% url 'hor:first_service' %}">Услуги</a>
             </nav>
 
+            <form class="search_form" action="{% url 'hor:first_service' %}">
+                <input class="search_service" type="search" placeholder="Введите запрос" aria-label="Search" name="search">
+                <button class="btn_search" type="submit">Найти</button>
+            </form>
+
             <div style="display: flex; align-items: center">
                 <a style="padding: 0" class="menu_header" href="{% url 'reg:register' %}">Регистрация/ </a>
                 {% if user.is_authenticated %}

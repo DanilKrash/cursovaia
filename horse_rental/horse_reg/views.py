@@ -11,7 +11,7 @@ class RegisterView(CreateView):
     model = CustomUser
     form_class = CustomUserRegister
     template_name = 'horse_reg/register.html'
-    success_url = reverse_lazy('hor:services')
+    success_url = reverse_lazy('hor:first_service')
 
     def post(self, request, *args, **kwargs):
         if self.form_class(request.POST).is_valid():
