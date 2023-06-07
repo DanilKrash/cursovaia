@@ -9,6 +9,7 @@ urlpatterns = [
     path('services/', include('horse.urls', namespace='hor')),
     path('auth/', include('horse_reg.urls', namespace='reg')),
     path('', include('horse.urls', namespace='main')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:

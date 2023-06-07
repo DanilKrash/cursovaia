@@ -393,10 +393,20 @@ body, html{
     border: 1px solid #bdbdbd;
 }
 
+.detail_desc{
+    font-family: Open Sans,Arial,sans-serif;
+    color: #666;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 80px;
+    line-height: 1.8em;
+    margin: 0;
+}
+
 .txt_info_serv{
     display: flex;
     width: 674px;
-    height: 249px;
+    height: 250px;
     flex-direction: column;
     border: 1px solid #bdbdbd;
     align-items: center;
@@ -433,11 +443,16 @@ body, html{
 
 .comment_holder{
     border-bottom: 1px solid black;
+    padding-bottom: 5px;
     border-top: none;
     border-left: none;
     border-right: none;
     margin-top: 10px;
     margin-right: 220px;
+    transition: all ease 0.2s;
+}
+.comment_holder:focus{
+    border-bottom: 2px solid black;
 }
 
 .comment_send{
@@ -506,6 +521,7 @@ p{
 
 .block_fields{
     display: flex;
+    flex-direction: column;
     height: auto;
     width: 1000px;
     background: #ffffff;
@@ -530,4 +546,23 @@ p{
 .btn_register:hover{
     background: #949494;
     color: black;
+}
+
+.socialaccount_ballot{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 60px 0 20px 0;
+}
+
+.socialaccount_provider{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 800;
+    color: black;
+}
+
+.account_login{
+    display: flex;
+    align-items: center;
 }

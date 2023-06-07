@@ -14,7 +14,6 @@ class CustomUserManager(BaseUserManager):
         user.is_active = user.is_superuser
         user.set_password(password)
         user.save()
-
         return user
 
     def create_superuser(self, email, password, *args, **kwargs):

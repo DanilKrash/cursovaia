@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
+{% load i18n %}
 {% load static %}
+{% load account socialaccount %}
 
 {% block title %}Авторизация{% endblock %}
 
@@ -8,6 +10,28 @@
      <div class="fon_register" style="background-image: linear-gradient(90deg,rgba(244,240,233,0.9) 30%,rgba(244,240,233,0) 100%), url('{% static 'img/fonreg.jpg' %}')!important; height: auto; padding-bottom: 119px; padding-top: 119px;">
         <h class="txt_register">Заполните все поля чтобы пройти авторизацию</h>
         <form action="{% url 'reg:login' %}" class="block_fields" method="post">
+            {% get_providers as socialaccount_providers %}
+
+
+            {% if socialaccount_providers %}<p>{% blocktrans with site.name as site_name %}
+
+            {% endblocktrans %}</p>
+
+                <div class="socialaccount_ballot">
+                    <div class="account_login">
+                        <p style="padding-right: 10px; font-size: 20px"> Вы можете войти в свой аккаун через: {% include "socialaccount/snippets/provider_list.html" with process="login" %} </p>
+
+                    </div>
+                    <p style="font-size: 20px"> или заполнив поля: </p>
+                </div>
+
+
+
+            {% else %}
+                <p>{% blocktrans %}If you have not created an account yet, then please
+                <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+            {% endif %}
+
             <div style="display: flex; flex-direction: column; padding: 35px 0 60px 0;">
                 {% csrf_token %}
                 {{ form }}
