@@ -1,3 +1,6 @@
+import datetime
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -118,3 +121,17 @@ class Comments(models.Model):
 
     def __str__(self):
         return '{}'.format(self.user)
+
+
+class Order(models.Model):
+    services = models.ForeignKey(Services, on_delete=models.CASCADE, verbose_name='Услуга')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    date_start = models.DateTimeField(auto_now_add=False, verbose_name='Дата заезда')
+    date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата заказа')
+    trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, null=True, verbose_name='Тренер')
+    horse = models.ForeignKey(Horse, on_delete=models.SET_NULL, null=True, verbose_name='Лошадь')
+
+    class Meta:
+        ordering = ('-date_of_create',)
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'

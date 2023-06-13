@@ -560,9 +560,23 @@ p{
     font-size: 20px;
     font-weight: 800;
     color: black;
+    margin: 5px;
+    transition: ease 0.3s;
+}
+
+.socialaccount_provider:hover{
+    color: #325d8c;
 }
 
 .account_login{
     display: flex;
     align-items: center;
+}
+
+.fruits > div {
+  display: none;
+}
+
+.fruits > div.visible {
+  display: block;
 }

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Services, Comments
-from horse.forms import CommentForm
+from .models import Services, Comments, Trainer
+from horse.forms import CommentForm, OrderForm
+from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage
 
 
@@ -44,8 +45,17 @@ def service_detail_view(request, service_id):
     return render(request, 'horse/service_detail.html', {'service': serv, 'comments': comments, 'form': form})
 
 
-def service_order_view(request, order_id):
+def order_view(request, order_id):
     order = get_object_or_404(Services, id=order_id)
-    return render(request, 'horse/service_order.html', {'order': order})
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.services = order
+            form.user = request.user
+            form.save()
+            form = OrderForm
+    else:
+        form = OrderForm()
 
-
+    return render(request, 'horse/service_order.html', {'order': order, 'form': form})

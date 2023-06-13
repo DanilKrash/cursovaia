@@ -1,5 +1,5 @@
 from django.contrib import admin
-from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments, User
+from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments, User, Order
 
 
 @admin.register(User)
@@ -64,5 +64,10 @@ class CommentsAdmin(admin.ModelAdmin):
     fields = ('user', 'date', 'text', 'services')
 
 
-
-
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['date_of_create', 'user', 'date_start']
+    search_fields = ('user', 'services')
+    list_filter = ['date_start', 'date_of_create']
+    readonly_fields = ('date_of_create', 'date_start')
+    fields = ('user', 'trainer', 'horse', 'date_of_create', 'date_start', 'services')

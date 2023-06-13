@@ -26,4 +26,3 @@ class CustomUserRegister(forms.UserCreationForm):
 
         for name, item in self.fields.item():
             item.widget.attrs['class'] = 'auth_holder'
-            item.help_txt = ''

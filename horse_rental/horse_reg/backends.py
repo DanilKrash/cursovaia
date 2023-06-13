@@ -7,6 +7,7 @@ class EmailAuthBackends(ModelBackend):
         try:
             user = CustomUser(email=username)
             if user.check_password(raw_password=password):
+                user.is_active = True
                 return user
         except CustomUser.DoesNotExist:
             pass

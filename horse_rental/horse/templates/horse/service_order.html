@@ -1,9 +1,18 @@
 {% extends 'layout.html' %}
 {% load thumbnail %}
+{% load static %}
 {% block title %}Заказ улсуги{% endblock %}
 
 {% block content %}
-    <div>
-        <p style="margin: 100px">ggggggggg</p>
+    <div style="margin-top: 200px" class="order_blocks">
+        <div class="block_form_order">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.date_start }}
+                {{ form.trainer }}
+                {{ form.horse }}
+                <button type="submit">Save</button>
+           </form>
+        </div>
     </div>
 {% endblock %}

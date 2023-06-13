@@ -11,9 +11,9 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Не задано имя пользователя!')
 
         user = CustomUser(email=email, **kwargs)
-        user.is_active = user.is_superuser
         user.set_password(password)
         user.save()
+        user.is_active = True
         return user
 
     def create_superuser(self, email, password, *args, **kwargs):
@@ -25,13 +25,9 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(max_length=128, unique=True, db_index=True, blank=False)
-    is_active = models.BooleanField(blank=False, default=False)
+    is_active = models.BooleanField(blank=False, default=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
-
-
-
-
