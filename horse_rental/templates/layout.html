@@ -10,8 +10,8 @@
 <body>
     <div class="header_nav">
         <div class="header_nav_content">
-            <p style="color: white; margin-right: 15px; flex-direction: row"><img style="width: 14px; height: 14px; margin-right: 5px" src="{% static 'img/telefon.png' %}" alt="fffff"> +7 987 345 43 32 </p>
-            <p style="color: white; flex-direction: row"><img style="width: 15px; height: 15px; margin-right: 5px" src="{% static 'img/mail.png' %}" alt="fffff"> horserental.@mail.ru </p>
+            <tel style="color: white; margin-right: 15px; flex-direction: row"><img style="width: 14px; height: 14px; margin-right: 5px" src="{% static 'img/telefon.png' %}" alt="fffff"> +7 987 345 43 32 </tel>
+            <mailto style="color: white; flex-direction: row"><img style="width: 15px; height: 15px; margin-right: 5px" src="{% static 'img/mail.png' %}" alt="fffff"> horserental.@mail.ru </mailto>
         </div>
     </div>
 
@@ -20,6 +20,7 @@
             <nav style="display: flex; align-items: center">
                 <a href="{% url 'main:main' %}"> <img style="width: 151px; height: 62px" src="{% static 'img/logo.png' %}" alt=""> </a>
                 <a class="menu_header" href="{% url 'hor:first_service' %}">Услуги</a>
+                <a class="menu_header" href="{% url 'contacts:contacts' %}">Контакты</a>
             </nav>
 
             <form class="search_form" action="{% url 'hor:first_service' %}">
@@ -51,10 +52,15 @@
             <div class="footer_block">
                 <a class="menu_footer" href="{% url 'main:main' %}">Главная</a>
                 <a class="menu_footer" href="{% url 'hor:first_service' %}">Услуги</a>
-
+                <a class="menu_footer" href="{% url 'contacts:contacts' %}">Контакты</a>
             </div>
             <div class="footer_block">
-                <p class="txt_menu">Мы в соцсетях:</p>
+                <ul class="txt_menu">Мы в соцсетях:
+                    <ul class="social-icons">
+                        <li><a class="social-icon-vk" href="https://vk.com/konny_dvor72" title="Перейти в группу" target="_blank" rel="noopener"></a></li>
+                        <li><a class="social-icon-youtube" href="https://www.youtube.com/channel/UCH8VnSKO4vllIYwvQNs2oGA" title="Перейти на канал" target="_blank" rel="noopener"></a></li>
+                    </ul>
+                </ul>
                 <a class="menu_footer" href="">Пользовательское соглашение</a>
                 <a class="menu_footer" href="">Политика конфиденциальности</a>
             </div>

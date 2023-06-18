@@ -15,11 +15,18 @@
             <div class="service_list">
                 <a style="text-decoration: none; color: black; margin: 0" href="{% url 'hor:detail' service.pk %}">
                     {% thumbnail service.service_img '400x300' as im %}
-                        <img class="img_service" src="{{im.url}}" alt="">
+                        <img class="img_service" src="{{im.url}}" alt="" height="300">
                     {% endthumbnail %}
                     <div class="texts_service">
                         <p class="txt_service">{{ service.service_name }}</p>
-                        <p style="font-size: 42px" class="txt_service">{{ service.service_sell }}</p>
+                        {% if service.sale %}
+                            <div style="display: flex; align-items: flex-end">
+                                <p style="font-size: 35px; color: #b70000;" class="txt_service">{{ service.sell }}₽</p>
+                                <strike style="font-size: 20px; color: #868686; padding-left: 5px"> {{ service.service_sell }}₽ </strike>
+                            </div>
+                        {% else %}
+                            <p style="font-size: 35px;" class="txt_service">{{ service.service_sell }}₽</p>
+                        {% endif %}
                     </div>
                 </a>
             </div>

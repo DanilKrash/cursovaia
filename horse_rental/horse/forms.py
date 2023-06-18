@@ -12,15 +12,12 @@ class CommentForm(ModelForm):
 
 
 class OrderForm(forms.ModelForm):
-
     class Meta:
         model = Order
         fields = ('date_start', 'trainer', 'horse')
         widgets = {
             'date_start': DateTimeInput(attrs={
-                'class': 'comment_holder',
+                'class': 'start_order',
                 'type': 'datetime-local',
             }),
         }
-
-

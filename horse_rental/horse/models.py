@@ -1,6 +1,3 @@
-import datetime
-
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -44,6 +41,7 @@ class Training(models.Model):
 
 class Trainer(models.Model):
     name = models.CharField(max_length=30, verbose_name='Имя')
+    image = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
     sername = models.CharField(max_length=30, verbose_name='Фамилия')
     lastname = models.CharField(max_length=30, verbose_name='Отчество', blank=True)
     date_of_employment = models.DateTimeField(auto_now_add=True, verbose_name='Дата устройства')
@@ -64,7 +62,7 @@ class Horse(models.Model):
     breed = models.CharField(max_length=30, verbose_name='Порода')
     status = models.CharField(max_length=50, verbose_name='Статус')
     birthday = models.DateTimeField(auto_now_add=True, verbose_name='День рождения')
-    sername = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name='Тренер')
+    trainer = models.ManyToManyField(Trainer, verbose_name='Тренер')
 
     class Meta:
         ordering = ('horse_name',)
@@ -93,19 +91,27 @@ class Route(models.Model):
 class Services(models.Model):
     service_name = models.CharField(max_length=30, verbose_name='Наименование')
     service_img = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
-    service_sell = models.CharField(max_length=50, verbose_name='Цена')
-    horse = models.ForeignKey(Horse, on_delete=models.CASCADE, verbose_name='Порода')
-    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name='Тренер')
+    service_sell = models.IntegerField(verbose_name='Цена')
+    sale = models.IntegerField('Скидка в процентах', blank=True, null=True, default=0)
+    horse = models.ManyToManyField(Horse, verbose_name='Порода', blank=True, symmetrical=False)
+    trainer = models.ManyToManyField(Trainer, verbose_name='Тренер', blank=True, symmetrical=False)
     training = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
+
+    def get_trainer(self):
+        return ", ".join([str(p) for p in self.trainer.all()])
+
+    def get_horse(self):
+        return ", ".join([str(p) for p in self.horse.all()])
 
     class Meta:
         ordering = ('service_name',)
         verbose_name = 'Услуга'
         verbose_name_plural = 'Услуги'
 
-    def __str__(self):
-        return self.service_name
+    @property
+    def sell(self):
+        return int(self.service_sell * (100 - self.sale) / 100)
 
 
 class Comments(models.Model):
@@ -128,8 +134,8 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     date_start = models.DateTimeField(auto_now_add=False, verbose_name='Дата заезда')
     date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата заказа')
-    trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, null=True, verbose_name='Тренер')
-    horse = models.ForeignKey(Horse, on_delete=models.SET_NULL, null=True, verbose_name='Лошадь')
+    trainer = models.ForeignKey(Services, on_delete=models.CASCADE, null=True, verbose_name='Тренер', related_name='order_trainer')
+    horse = models.ForeignKey(Services, on_delete=models.CASCADE, null=True, verbose_name='Лошадь', related_name='order_horse')
 
     class Meta:
         ordering = ('-date_of_create',)

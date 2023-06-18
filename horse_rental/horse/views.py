@@ -1,7 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from .models import Services, Comments, Trainer
+from .models import Services, Comments
 from horse.forms import CommentForm, OrderForm
-from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage
 
 
@@ -12,7 +12,7 @@ def main(request):
 def service_list_view(request, page_num=1):
     search = request.GET.get('search', '')
     if search:
-        services = Services.objects.filter(service_name__icontains=search)
+        services = Services.objects.filter(service_name__iregex=search)
     else:
         services = Services.objects.all()
     paginator = Paginator(services, 3)
@@ -45,6 +45,7 @@ def service_detail_view(request, service_id):
     return render(request, 'horse/service_detail.html', {'service': serv, 'comments': comments, 'form': form})
 
 
+@login_required
 def order_view(request, order_id):
     order = get_object_or_404(Services, id=order_id)
     if request.method == 'POST':

@@ -4,15 +4,19 @@
 {% block title %}Заказ улсуги{% endblock %}
 
 {% block content %}
-    <div style="margin-top: 200px" class="order_blocks">
+    <div class="order_blocks">
         <div class="block_form_order">
-            <form method="post">
+            <form class="form_order" method="post">
                 {% csrf_token %}
                 {{ form.date_start }}
                 {{ form.trainer }}
                 {{ form.horse }}
                 <button type="submit">Save</button>
            </form>
+        </div>
+        <div class="block_info_order">
+            <img src="{{ order.service_img }}" alt="">
+            <p>{{ order.service_name }}</p>
         </div>
     </div>
 {% endblock %}
