@@ -22,7 +22,7 @@
                         {% if service.sale %}
                             <div style="display: flex; align-items: flex-end">
                                 <p style="font-size: 35px; color: #b70000;" class="txt_service">{{ service.sell }}₽</p>
-                                <strike style="font-size: 20px; color: #868686; padding-left: 5px"> {{ service.service_sell }}₽ </strike>
+                                <span style="font-size: 20px; color: #868686; padding-left: 5px; text-decoration: line-through;"> {{ service.service_sell }}₽ </span>
                             </div>
                         {% else %}
                             <p style="font-size: 35px;" class="txt_service">{{ service.service_sell }}₽</p>

@@ -687,7 +687,6 @@ p{
 
 .order_blocks{
     display: flex;
-    margin-top: 200px;
     justify-content: space-evenly;
     margin-bottom: 150px;
 }
@@ -706,9 +705,9 @@ p{
 
 .form_order{
     display: flex;
-    height: 174px;
-    width: 637px;
-    align-items: center;
+    height: 250px;
+    width: 400px;
+    align-items: stretch;
     flex-direction: column;
     justify-content: space-evenly;
 }
@@ -724,6 +723,31 @@ p{
 }
 
 .block_info_order{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 300px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px 15px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.description_trainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 300px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px 15px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    justify-content: center;
+    margin: 20px 0 20px 0;
+}
+
+.description_horse{
     display: flex;
     flex-direction: column;
     align-items: center;

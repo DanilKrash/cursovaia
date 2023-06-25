@@ -37,7 +37,7 @@ class HorseAdmin(admin.ModelAdmin):
     list_display = ('horse_name', 'breed', 'status', 'birthday', 'horse_img')
     search_fields = ('horse_name', 'breed')
     list_filter = ('birthday',)
-    list_editable = ('status',)
+    list_editable = ('status', )
     filter_horizontal = ('trainer',)
 
 
@@ -68,10 +68,8 @@ class CommentsAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['date_of_create', 'user', 'date_start']
+    list_display = ['date_of_create', 'user', 'date_start', 'services']
     search_fields = ('user', 'services')
     list_filter = ['date_start', 'date_of_create']
-    readonly_fields = ('date_of_create', 'date_start')
+    readonly_fields = ('date_of_create',)
     fields = ('user', 'trainer', 'horse', 'date_of_create', 'date_start', 'services')
-
-

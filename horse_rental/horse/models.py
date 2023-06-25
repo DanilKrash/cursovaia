@@ -44,7 +44,7 @@ class Trainer(models.Model):
     image = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
     sername = models.CharField(max_length=30, verbose_name='Фамилия')
     lastname = models.CharField(max_length=30, verbose_name='Отчество', blank=True)
-    date_of_employment = models.DateTimeField(auto_now_add=True, verbose_name='Дата устройства')
+    date_of_employment = models.DateField(auto_now_add=False, verbose_name='Дата устройства')
     types_training_name = models.ForeignKey(Types_of_training, on_delete=models.CASCADE, verbose_name='Виды тренировок')
 
     class Meta:
@@ -55,13 +55,18 @@ class Trainer(models.Model):
     def __str__(self):
         return self.name
 
+    def get_name(self):
+        if not self.name:
+            return
+        return ' '.join([self.name])
+
 
 class Horse(models.Model):
     horse_name = models.CharField(max_length=30, verbose_name='Имя')
     horse_img = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
     breed = models.CharField(max_length=30, verbose_name='Порода')
     status = models.CharField(max_length=50, verbose_name='Статус')
-    birthday = models.DateTimeField(auto_now_add=True, verbose_name='День рождения')
+    birthday = models.DateField(auto_now_add=False, verbose_name='День рождения')
     trainer = models.ManyToManyField(Trainer, verbose_name='Тренер')
 
     class Meta:
@@ -92,11 +97,14 @@ class Services(models.Model):
     service_name = models.CharField(max_length=30, verbose_name='Наименование')
     service_img = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
     service_sell = models.IntegerField(verbose_name='Цена')
-    sale = models.IntegerField('Скидка в процентах', blank=True, null=True, default=0)
+    sale = models.IntegerField('Скидка в процентах', null=True, default=0)
     horse = models.ManyToManyField(Horse, verbose_name='Порода', blank=True, symmetrical=False)
-    trainer = models.ManyToManyField(Trainer, verbose_name='Тренер', blank=True, symmetrical=False)
+    trainer = models.ManyToManyField(Trainer, verbose_name='Тренер', blank=True, symmetrical=True)
     training = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
+
+    def __str__(self):
+        return self.service_name
 
     def get_trainer(self):
         return ", ".join([str(p) for p in self.trainer.all()])
@@ -130,14 +138,17 @@ class Comments(models.Model):
 
 
 class Order(models.Model):
-    services = models.ForeignKey(Services, on_delete=models.CASCADE, verbose_name='Услуга')
+    services = models.ForeignKey(Services, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Услуга')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     date_start = models.DateTimeField(auto_now_add=False, verbose_name='Дата заезда')
     date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата заказа')
-    trainer = models.ForeignKey(Services, on_delete=models.CASCADE, null=True, verbose_name='Тренер', related_name='order_trainer')
-    horse = models.ForeignKey(Services, on_delete=models.CASCADE, null=True, verbose_name='Лошадь', related_name='order_horse')
+    trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Тренер')
+    horse = models.ForeignKey(Horse, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Лошадь')
 
     class Meta:
         ordering = ('-date_of_create',)
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return f'Заказ №{self.id}'

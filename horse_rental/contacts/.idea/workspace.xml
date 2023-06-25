@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="49eabe09-0350-4237-a87d-629bd78b2b90" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/0002_alter_feedback_text.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../horse/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0002_services_discount_services_sale_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0003_alter_services_discount_alter_services_sale_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0004_remove_services_discount.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0005_remove_horse_sername_horse_trainer_trainer_image_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0006_category_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0007_alter_services_horse_alter_services_trainer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0008_remove_video_category_delete_category_delete_video.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0009_alter_services_horse_alter_services_trainer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0010_alter_services_horse_alter_services_trainer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0011_remove_order_horse_remove_order_trainer_order_horse_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0012_remove_order_horse_remove_order_trainer_order_horse_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/0013_alter_order_horse_alter_order_trainer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../horse/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/templates/horse/service_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../horse/templates/horse/service_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/templates/horse/service_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/../horse/templates/horse/service_order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../horse/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse_reg/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse_reg/migrations/0002_alter_customuser_is_active.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse_reg/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../horse_rental/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../horse_rental/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../static/js/scripts.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2RQ1vR1A5iY3Zz7CGNUg5Fq4TgL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="49eabe09-0350-4237-a87d-629bd78b2b90" name="Changes" comment="" />
+      <created>1687167723013</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687167723013</updated>
+      <workItem from="1687167724841" duration="305000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

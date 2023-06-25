@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm, TextInput, DateTimeInput
-from .models import Comments, Order
+
+from .models import Comments, Order, Services
 
 
 class CommentForm(ModelForm):
@@ -21,3 +22,9 @@ class OrderForm(forms.ModelForm):
                 'type': 'datetime-local',
             }),
         }
+
+    def __init__(self, services_id, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        services = Services.objects.get(id=services_id)
+        self.fields['trainer'].queryset = services.trainer.all()
+        self.fields['horse'].queryset = services.horse.all()

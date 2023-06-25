@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
 from django.shortcuts import render, get_object_or_404
-from .models import Services, Comments
+from .models import Services, Comments, Trainer, Horse
 from horse.forms import CommentForm, OrderForm
 from django.core.paginator import Paginator, EmptyPage
 
@@ -45,18 +47,28 @@ def service_detail_view(request, service_id):
     return render(request, 'horse/service_detail.html', {'service': serv, 'comments': comments, 'form': form})
 
 
-@login_required
+@login_required(login_url='reg:login')
 def order_view(request, order_id):
     order = get_object_or_404(Services, id=order_id)
     if request.method == 'POST':
-        form = OrderForm(request.POST)
+        form = OrderForm(order_id, request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.services = order
             form.user = request.user
+            form.services = order
             form.save()
-            form = OrderForm
+            form = OrderForm(order_id)
     else:
-        form = OrderForm()
+        form = OrderForm(order_id)
 
     return render(request, 'horse/service_order.html', {'order': order, 'form': form})
+
+
+def trainer_view(request, trainer_id):
+    trainer = get_object_or_404(Trainer, id=trainer_id)
+    return JsonResponse({'sername': trainer.sername, 'date': trainer.date_of_employment})
+
+
+def horse_view(request, horses_id):
+    horses = get_object_or_404(Horse, id=horses_id)
+    return JsonResponse({'breed': horses.breed, 'birthday': horses.birthday})
