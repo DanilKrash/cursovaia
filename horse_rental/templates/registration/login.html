@@ -34,7 +34,7 @@
 
             <div style="display: flex; flex-direction: column; padding: 35px 0 60px 0;">
                 {% csrf_token %}
-                {{ form }}
+                {{ form.as_p }}
                 <input class="btn_register" type="submit" value="Войти">
             </div>
         </form>

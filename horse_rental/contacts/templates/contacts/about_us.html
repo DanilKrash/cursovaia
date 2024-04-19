@@ -12,7 +12,7 @@
             <div style="display: flex; flex-direction: column; padding-right: 60px">
                 <div style="padding-bottom: 30px">
                     <p style="padding-bottom: 10px; font-weight: 800; color: #333; font-family: 'Alice',Georgia,serif, 'Times New Roman',serif;">Адрес:</p>
-                    <p style="color: #666666">г. Курган</p>
+                    <p style="color: #666666">г. Курган, ул. приозёрная 88</p>
                 </div>
                 <div>
                     <p style="padding-bottom: 10px; font-weight: 800; color: #333; font-family: 'Alice',Georgia,serif, 'Times New Roman',serif;">Электронная почта:</p>
@@ -34,21 +34,5 @@
             </div>
         </div>
     </div>
-    <div style="padding-bottom: 45px" class="txt_about_us">
-        <h1 style="font-size: 42px; width: auto;" class="txt_banner">Обратная связь</h1>
-        <hr id="line">
-        <p style="width: 700px; text-align: center; margin-top: 15px" class="txt_banner2">Напишите нам, свой отзыв о нашей работе, пожелания чтобы мы могли бы сделать лучше. Ваше мнение очень ценно для нас.</p>
-    </div>
-    {% if user.is_active %}
-        <form class="form_feed" style="padding: 20px 0 20px 0" action="" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div class="footer_feed">
-                <button class="feed_send" type="submit">Оставить отзыв</button>
-            </div>
-        </form>
-    {% else %}
-        <p style="padding: 20px 0 20px 0; color: red">Для того, чтобы оставить отзыв, нужно авторизоваться</p>
-    {% endif %}
     <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aa28b5c4cab9e2be41e03a432242cb73cbf0582ee9647b83c9839165a5960c6eb&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
 {% endblock %}

@@ -9,17 +9,17 @@ class CustomUserRegister(forms.UserCreationForm):
                                   widget=TextInput(attrs={"class": "auth_holder"}))
     email = dj_forms.EmailField(max_length=128, label='Эл. почта',
                                 widget=TextInput(attrs={"class": "auth_holder"}))
-    name = dj_forms.CharField(max_length=30, label='Имя',
+    first_name = dj_forms.CharField(max_length=30, label='Имя',
                               widget=TextInput(attrs={"class": "auth_holder"}))
     last_name = dj_forms.CharField(max_length=30, label='Фамилия',
                                    widget=TextInput(attrs={"class": "auth_holder"}))
-    password1 = dj_forms.CharField(max_length=30, widget=TextInput(attrs={"class": "auth_holder"}), label='Пароль')
-    password2 = dj_forms.CharField(max_length=30, widget=TextInput(attrs={"class": "auth_holder"}),
+    password1 = dj_forms.CharField(max_length=30, widget=dj_forms.PasswordInput(attrs={"class": "auth_holder"}), label='Пароль')
+    password2 = dj_forms.CharField(max_length=30, widget=dj_forms.PasswordInput(attrs={"class": "auth_holder"}),
                                    label='Повторите пароль')
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
 
     def __int__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

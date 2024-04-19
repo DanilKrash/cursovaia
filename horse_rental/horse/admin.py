@@ -1,5 +1,15 @@
 from django.contrib import admin
-from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments, User, Order
+from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments, User, Order, Feedback
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date', 'elect')
+    search_fields = ('user', )
+    list_filter = ('date', 'elect')
+    readonly_fields = ('date', )
+    list_editable = ('elect', )
+    fields = ('user', 'date', 'text', 'elect')
 
 
 @admin.register(User)

@@ -13,19 +13,19 @@ class CustomUserManager(BaseUserManager):
         user = CustomUser(email=email, **kwargs)
         user.set_password(password)
         user.save()
-        user.is_active = True
+        user.is_active = False
         return user
 
     def create_superuser(self, email, password, *args, **kwargs):
         kwargs['is_staff'] = True
-        kwargs['is_superuser'] = True
+        kwargs['is_superuser'] = False
 
         return self.create_user(email, password, *args, **kwargs)
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(max_length=128, unique=True, db_index=True, blank=False)
-    is_active = models.BooleanField(blank=False, default=True)
+    email = models.EmailField(max_length=128, unique=True, db_index=True, blank=False, verbose_name='Почта')
+    is_active = models.BooleanField(blank=False, default=False, verbose_name='Активен')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

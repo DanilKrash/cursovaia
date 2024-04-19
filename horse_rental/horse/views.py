@@ -2,13 +2,23 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 from django.shortcuts import render, get_object_or_404
-from .models import Services, Comments, Trainer, Horse
-from horse.forms import CommentForm, OrderForm
+from .models import Services, Comments, Trainer, Horse, Feedback
+from horse.forms import CommentForm, OrderForm, FeedbackForm
 from django.core.paginator import Paginator, EmptyPage
 
 
 def main(request):
-    return render(request, 'horse/main.html')
+    cont = Feedback.objects.all()
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.save()
+            form = FeedbackForm
+    else:
+        form = FeedbackForm()
+    return render(request, 'horse/main.html', {'cont': cont, 'form': form})
 
 
 def service_list_view(request, page_num=1):

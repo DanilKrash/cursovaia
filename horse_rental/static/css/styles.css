@@ -341,7 +341,7 @@ body, html{
     transition: ease 0.5s;
     font-size: 17px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 10%;
     margin-left: 3px;
 }
 
@@ -350,6 +350,7 @@ body, html{
     background: none;
     opacity: .7;
 }
+
 #prev:hover{
     transform: translateX(-10%);
     background: none;
@@ -362,11 +363,10 @@ body, html{
 
 .page_active{
     background: #264059;
-    min-width: 40px;
     color: white;
     text-align: center;
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 10%;
     opacity: .8;
     font-size: 17px;
     margin-left: 3px;

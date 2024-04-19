@@ -3,7 +3,8 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-    <div class="banner" style="background-image: linear-gradient(90deg,rgba(244,240,233,0.79) 30%,rgba(232,244,233,0) 100%), url('{% static 'img/fon.png' %}')!important;">
+    <div class="banner"
+         style="background-image: linear-gradient(90deg,rgba(244,240,233,0.79) 30%,rgba(232,244,233,0) 100%), url('{% static 'img/fon.png' %}')!important;">
         <div class="banner_content">
             <h1 class="txt_banner">Получите удовольствия
                 от конных прогулок</h1>
@@ -15,16 +16,17 @@
         <div class="txt_about_us">
             <h1 style="font-size: 42px; width: auto;" class="txt_banner">Посмотрите фильм о нашем конном дворe</h1>
             <hr id="line">
-            <p style="width: auto; margin-top: 15px" class="txt_banner2">Вы увидите как у нас все устроено, кто наши люди, лошади и что вас ждет.</p>
+            <p style="width: auto; margin-top: 15px" class="txt_banner2">Вы увидите как у нас все устроено, кто наши
+                люди, лошади и что вас ждет.</p>
         </div>
-        <div class="frame_video">
-            <iframe width="1050" height="591"
-                    src="https://www.youtube.com/embed/L5UrjQYZH6g?start=1"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-            </iframe>
-        </div>
+        {#        <div class="frame_video">#}
+        {#            <iframe width="1050" height="591"#}
+        {#                    src="https://www.youtube.com/embed/L5UrjQYZH6g?start=1"#}
+        {#                    title="YouTube video player" frameborder="0"#}
+        {#                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"#}
+        {#                    allowfullscreen>#}
+        {#            </iframe>#}
+        {#        </div>#}
     </div>
     <div class="fotos-about_us">
         <div style="padding-bottom: 45px" class="txt_about_us">
@@ -57,14 +59,66 @@
             <h2 class="txt_banner3">ВЕРХОВЫЕ ПРОГУЛКИ</h2>
             <h1 style="font-size: 42px; width: 408px" class="txt_banner">Что тебя ждет во время прогулки</h1>
             <hr style="margin: 0;" id="line">
-            <p style="margin-top: 30px; width: 500px; line-height: 2.5em" class="txt_banner2">— Инструктаж безопасности <br>
-            — Знакомство с животным <br>
-            — Знакомство с амуницией <br>
-            — Тренировочный заезд на территории <br>
+            <p style="margin-top: 30px; width: 500px; line-height: 2.5em" class="txt_banner2">— Инструктаж безопасности
+                <br>
+                — Знакомство с животным <br>
+                — Знакомство с амуницией <br>
+                — Тренировочный заезд на территории <br>
 
-            — Прогулка по берёзовому лесу <br>
+                — Прогулка по берёзовому лесу <br>
 
-            — Возможность воспользоваться услугами фотографа</p>
+                — Возможность воспользоваться услугами фотографа</p>
         </div>
+    </div>
+
+    <div style="padding-bottom: 45px" class="txt_about_us">
+        <h1 style="font-size: 42px; width: auto;" class="txt_banner">Обратная связь</h1>
+        <hr id="line">
+        <p style="width: 700px; text-align: center; margin-top: 15px" class="txt_banner2">Напишите нам, свой отзыв о
+            нашей работе, пожелания чтобы мы могли бы сделать лучше. Ваше мнение очень ценно для нас.</p>
+    </div>
+    {% if user.is_active %}
+        <form class="form_feed" style="padding: 20px 0 20px 0" action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="footer_feed">
+                <button class="feed_send" type="submit">Оставить отзыв</button>
+            </div>
+        </form>
+    {% else %}
+        <div class="d-flex justify-content-center">
+            <p style="padding: 20px 0 20px 0; color: red">Для того, чтобы оставить отзыв, нужно авторизоваться</p>
+        </div>
+    {% endif %}
+
+    <div class="mt-5 mb-5">
+        <h1 style="font-size: 42px;" class="txt_banner mb-4">Наши лучшие отзывы</h1>
+        {% for item in cont %}
+            {% if item.elect == True %}
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+
+                            <div class="card-body p-4">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="justify-content-between">
+                                            <div class="flex-row align-items-center">
+    {#                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp"#}
+    {#                                                 alt="avatar" width="25"#}
+    {#                                                 height="25"/>#}
+                                                <p>{{ item.text }}</p>
+                                                <h1 class="small mb-0 ms-2">{{ item.user.username }}</h1>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}

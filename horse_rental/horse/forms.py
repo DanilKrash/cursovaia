@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm, TextInput, DateTimeInput
 
-from .models import Comments, Order, Services, Trainer, Horse
+from .models import Comments, Order, Services, Trainer, Horse, Feedback
 
 
 class CommentForm(ModelForm):
@@ -13,8 +13,10 @@ class CommentForm(ModelForm):
 
 
 class OrderForm(forms.ModelForm):
-    trainer = forms.ModelChoiceField(label='Введите комментарий', queryset=Trainer.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
-    horse = forms.ModelChoiceField(label='Введите комментарий', queryset=Horse.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
+    trainer = forms.ModelChoiceField(label='Введите комментарий', queryset=Trainer.objects.all(),
+                                     widget=forms.Select(attrs={"class": "form-select"}))
+    horse = forms.ModelChoiceField(label='Введите комментарий', queryset=Horse.objects.all(),
+                                   widget=forms.Select(attrs={"class": "form-select"}))
 
     class Meta:
         model = Order
@@ -31,3 +33,12 @@ class OrderForm(forms.ModelForm):
         services = Services.objects.get(id=services_id)
         self.fields['trainer'].queryset = services.trainer.all()
         self.fields['horse'].queryset = services.horse.all()
+
+
+class FeedbackForm(ModelForm):
+    text = forms.CharField(label='',
+                           widget=forms.Textarea(attrs={"class": "feedbacktext", "placeholder": 'Введите текст'}))
+
+    class Meta:
+        model = Feedback
+        fields = ['text', ]

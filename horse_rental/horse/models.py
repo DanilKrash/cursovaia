@@ -4,6 +4,17 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    text = models.TextField(blank=False, verbose_name='Текст')
+    elect = models.BooleanField(default=False, verbose_name='Избранный')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
+
+    class Meta:
+        verbose_name = 'Пожелание'
+        verbose_name_plural = 'Пожелания'
+
+
 class Complexity(models.Model):
     complexity_name = models.CharField(max_length=30, verbose_name='Уровень сложности')
 
