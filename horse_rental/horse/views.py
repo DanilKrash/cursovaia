@@ -66,9 +66,9 @@ def order_view(request, order_id):
 
 def trainer_view(request, trainer_id):
     trainer = get_object_or_404(Trainer, id=trainer_id)
-    return JsonResponse({'sername': trainer.sername, 'date': trainer.date_of_employment})
+    return JsonResponse({'sername': trainer.sername, 'date': trainer.date_of_employment, 'image': trainer.image.url, 'lastname': trainer.lastname})
 
 
 def horse_view(request, horses_id):
     horses = get_object_or_404(Horse, id=horses_id)
-    return JsonResponse({'breed': horses.breed, 'birthday': horses.birthday})
+    return JsonResponse({'breed': horses.breed, 'birthday': horses.birthday, 'horse_img': horses.horse_img.url, 'status': horses.status})

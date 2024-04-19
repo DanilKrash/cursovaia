@@ -20,10 +20,11 @@
                     {{form.trainer}}
                 {% endif %}
                 {{ form.horse }}
-                <button style="width: 200px" class="btn_buy" type="submit">Заказать</button>
+                <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>
            </form>
         </div>
         <div style="display: flex; flex-direction: column">
+            <h3 class="txt_banner2 mb-5">Информация заказа:</h3>
             <div class="block_info_order">
                 {% thumbnail order.service_img '300' crop="center" as im %}
                     <img style="border-radius: 10px 10px 0 0;" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="">

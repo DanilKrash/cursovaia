@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-ls%m95i677=_bq)90w#age6=b(^k6)ba81li!p@i_ud5z6k+0z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 
@@ -149,13 +149,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 2525
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'danil22092004@mail.ru'
-# EMAIL_HOST_PASSWORD = os.environ['DJANGO_EMAIL_HOST_PASSWORD']
+
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -163,8 +157,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = '51668953'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'LJYVQKRKr1POmGgkDb8Y'
+
 
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 SITE_ID = 1

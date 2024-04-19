@@ -16,9 +16,7 @@ class RegisterView(CreateView):
     def post(self, request, *args, **kwargs):
         if self.form_class(request.POST).is_valid():
             message = render(request, 'horse_reg/verif_register.html')
-            send_mail(subject='Регистрация на сайте', message='Для подтверждения перейдите по ссылке', from_email=settings.EMAIL_HOST_USER, recipient_list=[request.POST.get('email')])
+            send_mail(subject='Регистрация на сайте', message='Для подтверждения перейдите по ссылке http://localhost:8080',
+                      from_email=settings.EMAIL_HOST_USER, recipient_list=[request.POST.get('email')])
         result = super().post(request, *args, **kwargs)
         return result
-
-
-

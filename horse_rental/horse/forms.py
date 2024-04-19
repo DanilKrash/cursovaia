@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm, TextInput, DateTimeInput
 
-from .models import Comments, Order, Services
+from .models import Comments, Order, Services, Trainer, Horse
 
 
 class CommentForm(ModelForm):
@@ -13,6 +13,9 @@ class CommentForm(ModelForm):
 
 
 class OrderForm(forms.ModelForm):
+    trainer = forms.ModelChoiceField(label='Введите комментарий', queryset=Trainer.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
+    horse = forms.ModelChoiceField(label='Введите комментарий', queryset=Horse.objects.all(), widget=forms.Select(attrs={"class": "form-select"}))
+
     class Meta:
         model = Order
         fields = ('date_start', 'trainer', 'horse')
