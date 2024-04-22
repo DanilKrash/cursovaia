@@ -149,12 +149,18 @@ class Comments(models.Model):
 
 
 class Order(models.Model):
+    class Status(models.TextChoices):
+        new = 'new', 'Не просмотрен'
+        access = 'access', 'Одобрен'
+        danger = 'danger', 'Отказан'
+
     services = models.ForeignKey(Services, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Услуга')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     date_start = models.DateTimeField(auto_now_add=False, verbose_name='Дата заезда')
     date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата заказа')
     trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Тренер')
     horse = models.ForeignKey(Horse, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Лошадь')
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.new, verbose_name='Статус заказа')
 
     class Meta:
         ordering = ('-date_of_create',)

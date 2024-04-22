@@ -78,8 +78,9 @@ class CommentsAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['date_of_create', 'user', 'date_start', 'services']
+    list_display = ['date_of_create', 'user', 'date_start', 'services', 'status']
     search_fields = ('user', 'services')
-    list_filter = ['date_start', 'date_of_create']
-    readonly_fields = ('date_of_create',)
-    fields = ('user', 'trainer', 'horse', 'date_of_create', 'date_start', 'services')
+    list_filter = ['date_start', 'date_of_create', 'status']
+    readonly_fields = ('date_of_create', 'user')
+    list_editable = ('status', )
+    fields = ('user', 'trainer', 'horse', 'date_of_create', 'date_start', 'services', 'status')

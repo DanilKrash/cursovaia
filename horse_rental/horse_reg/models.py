@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from django.db import models
@@ -31,3 +32,23 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
+
+
+User = get_user_model()
+
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    phone = models.CharField(max_length=15, verbose_name='Номер телефона')
+    img = models.ImageField(upload_to='users/%Y/%m/%d/', verbose_name='Аватар')
+    body = models.TextField(verbose_name='О себе')
+    date_create = models.DateField(auto_now_add=True, verbose_name='Дата создания')
+    date_update = models.DateField(auto_now=True, blank=True, verbose_name='Дата изменения')
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
+    def __str__(self):
+        return f'Профиль пользователя {self.user}'
+
