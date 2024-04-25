@@ -13,20 +13,15 @@ class CommentForm(ModelForm):
 
 
 class OrderForm(forms.ModelForm):
-    trainer = forms.ModelChoiceField(label='Введите комментарий', queryset=Trainer.objects.all(),
+    trainer = forms.ModelChoiceField(label='', queryset=Trainer.objects.all(),
                                      widget=forms.Select(attrs={"class": "form-select"}))
-    horse = forms.ModelChoiceField(label='Введите комментарий', queryset=Horse.objects.all(),
+    horse = forms.ModelChoiceField(label='', queryset=Horse.objects.all(),
                                    widget=forms.Select(attrs={"class": "form-select"}))
+    date_start = forms.DateTimeField(label='', widget=DateTimeInput(attrs={"class": "form-control", 'type': 'datetime-local'}))
 
     class Meta:
         model = Order
         fields = ('date_start', 'trainer', 'horse')
-        widgets = {
-            'date_start': DateTimeInput(attrs={
-                'class': 'start_order',
-                'type': 'datetime-local',
-            }),
-        }
 
     def __init__(self, services_id, *args, **kwargs):
         super().__init__(*args, **kwargs)

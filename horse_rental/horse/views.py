@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Services, Comments, Trainer, Horse, Feedback
 from horse.forms import CommentForm, OrderForm, FeedbackForm
 from django.core.paginator import Paginator, EmptyPage
+
+from horse_reg.models import Profile
 
 
 def main(request):
@@ -67,7 +69,7 @@ def order_view(request, order_id):
             form.user = request.user
             form.services = order
             form.save()
-            form = OrderForm(order_id)
+            return redirect('/auth/my_orders/{{ user }}/')
     else:
         form = OrderForm(order_id)
 

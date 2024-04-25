@@ -7,7 +7,7 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('user', 'date', 'elect')
     search_fields = ('user', )
     list_filter = ('date', 'elect')
-    readonly_fields = ('date', )
+    readonly_fields = ('date', 'user')
     list_editable = ('elect', )
     fields = ('user', 'date', 'text', 'elect')
 
@@ -81,6 +81,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['date_of_create', 'user', 'date_start', 'services', 'status']
     search_fields = ('user', 'services')
     list_filter = ['date_start', 'date_of_create', 'status']
-    readonly_fields = ('date_of_create', 'user')
+    readonly_fields = ('date_of_create', )
     list_editable = ('status', )
     fields = ('user', 'trainer', 'horse', 'date_of_create', 'date_start', 'services', 'status')

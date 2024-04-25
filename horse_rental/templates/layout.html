@@ -35,8 +35,8 @@
                 {% if user.is_authenticated %}
                     <li class="dropdown"><a class="menu_header" href="#"><span>{{ user.username }}</span></a>
                         <ul>
-                            <li><a href="{% url 'reg:profile' %}">Ваш профиль</a></li>
-                            <li><a href="#">Ваши заказы</a></li>
+                            <li><a href="/auth/profile/{{ user.username }}/">Ваш профиль</a></li>
+                            <li><a href="/auth/my_orders/{{ user.username }}/">Ваши заказы</a></li>
                             <li><a href="{% url 'reg:logout' %}">Выйти</a></li>
                         </ul>
                     </li>

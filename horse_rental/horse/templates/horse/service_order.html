@@ -1,7 +1,10 @@
 {% extends 'layout.html' %}
+
 {% load thumbnail %}
 {% load static %}
+
 {% block title %}Заказ услуги{% endblock %}
+
 {% block content %}
     <div style="margin-top: 115px">
         <div style="max-width: 10000px; margin: auto; width: 60%; padding-bottom: 110px;">
@@ -11,13 +14,11 @@
     </div>
     <div class="order_blocks">
         <div class="block_form_order">
-            <form class="form_order" method="post">
+            <form action="." class="form_order" method="post">
                 {% csrf_token %}
                 {{ form.date_start }}
-                {% if order.trainer.count == 0 %}
-                    <p></p>
-                {% else %}
-                    {{form.trainer}}
+                {% if order.trainer.count != 0 %}
+                    {{ form.trainer }}
                 {% endif %}
                 {{ form.horse }}
                 <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>

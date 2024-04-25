@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} {% if request.user.username == user.username %} Ваши заявки {% else %} Заявки пользователя
+    {{ user.username }} {% endif %} {% endblock %}
+
+{% block content %}
+    <section style="margin-top: 100px;" class="h-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card" style="border-radius: 10px;">
+                        <div class="card-header px-4 py-5">
+                            <h5 class="text-muted mb-0">Спасибо, что заказываете у нас, <span
+                                    style="color: #a8729a;">{{ user.username }}</span>!
+                            </h5>
+                        </div>
+                        {% for item in order %}
+                            <div class="card-body p-4">
+                                <div class="card shadow-0 border mb-4">
+                                    <div class="card-body">
+                                        <p>{{ item }}</p>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <img src="{{ item.services.service_img.url }}"
+                                                     class="img-fluid" alt="Phone">
+                                            </div>
+                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                <p class="text-muted mb-0">{{ item.services.service_name }}</p>
+                                            </div>
+                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                <p class="text-muted mb-0 small">Лошадь: {{ item.horse }}</p>
+                                            </div>
+                                            {% if item.trainer != null %}
+                                                <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                    <p class="text-muted mb-0 small">Тренер: {{ item.trainer }}</p>
+                                                </div>
+                                            {% endif %}
+                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                <p class="text-muted mb-0 small">Дата заезда: {{ item.date_start }}</p>
+                                            </div>
+                                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                                <p class="text-muted mb-0 small">
+                                                    {% if item.services.sale %}
+                                                        <p style="color: #b70000">{{ item.services.sell }}₽</p>
+                                                        <span style="font-size: 20px; color: #868686; padding-left: 5px; text-decoration: line-through;"> {{ item.services.service_sell }}₽ </span>
+                                                    {% else %}
+                                                        <p style="color: #b70000">{{ item.services.service_sell }}₽</p>
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-md-2">
+                                                <p class="text-muted mb-0 small">Статус заказа: </p>
+                                            </div>
+                                            <div class="col-md-10 d-flex">
+                                                {% if item.status == 'new' %}
+                                                    <p class="text-secondary mb-0">{{ item.get_status_display }}</p>
+                                                {% elif item.status == 'access' %}
+                                                    <p class="text-success mb-0">{{ item.get_status_display }}</p>
+                                                {% else %}
+                                                    <p class="text-danger mb-0">{{ item.get_status_display }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="card-footer border-0 px-4 py-5"
+                             style="background-color: #264059; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                            <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
+                                Общая сумма: <span class="h2 mb-0 text-danger ms-2 me-2">{{ total }}</span> ₽</h5>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+{% endblock %}

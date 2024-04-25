@@ -38,7 +38,7 @@ User = get_user_model()
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     phone = models.CharField(max_length=15, verbose_name='Номер телефона')
     img = models.ImageField(upload_to='users/%Y/%m/%d/', verbose_name='Аватар')
     body = models.TextField(verbose_name='О себе')
