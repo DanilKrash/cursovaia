@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
+
 {% load thumbnail %}
 {% load static %}
+
 {% block title %}Информация о прокате{% endblock %}
 
 {% block content %}
@@ -26,7 +28,7 @@
                         <p style="font-size: 42px;" class="txt_service">{{ service.service_sell }}₽</p>
                     {% endif %}
                     <label>
-                        <a href="/order/{{ service.id }}"><button class="btn_buy">Заказать</button></a>
+                        <a href="{% url 'hor:order' order_id=service.id %}"><button class="btn_buy">Заказать</button></a>
                     </label>
                 </div>
             </div>

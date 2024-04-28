@@ -13,7 +13,9 @@ class RegisterView(CreateView):
     model = CustomUser
     form_class = CustomUserRegister
     template_name = 'horse_reg/register.html'
-    success_url = reverse_lazy('/auth/update_profile/{{ user.username }}/')
+
+    def get_object(self, queryset=None):
+        return self.request.user.username
 
     def post(self, request, *args, **kwargs):
         if self.form_class(request.POST).is_valid():
@@ -23,6 +25,9 @@ class RegisterView(CreateView):
                       from_email=settings.EMAIL_HOST_USER, recipient_list=[request.POST.get('email')])
         result = super().post(request, *args, **kwargs)
         return result
+
+    def get_success_url(self):
+        return reverse_lazy('reg:create_profile', kwargs={'slug': self.object.username})
 
 
 @login_required(login_url='reg:login')
@@ -41,7 +46,7 @@ def create_profile(request, username):
             form = form.save(commit=False)
             form.user = request.user
             form.save()
-            return redirect('/auth/profile/{{ user.username }}/')
+            return redirect('reg:profile', request.user.username)
     else:
         form = ProfileForm()
     return render(request, 'horse_reg/create_profile.html', {'form': form})
@@ -54,7 +59,7 @@ def update_profile(request, username):
         form = ProfileForm(instance=prof, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('/auth/profile/{{ user.username }}/')
+            return redirect('reg:profile', request.user.username)
     else:
         form = ProfileForm(instance=prof)
     return render(request, 'horse_reg/update_profile.html', {'form': form, 'prof': prof})
@@ -67,3 +72,5 @@ def my_orders(request, username):
     total_sale = sum(order.services.sale for order in order)
     total = (total_sell * (100 - total_sale) / 100)
     return render(request, 'horse_reg/my_orders.html', {'user': user, 'order': order, 'total': total})
+
+

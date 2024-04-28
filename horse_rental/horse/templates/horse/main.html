@@ -34,21 +34,35 @@
             <p style="width: auto; margin-top: 15px" class="txt_banner2">Это профессионалы своего дела!</p>
         </div>
 
-        <div class="slider-container">
-            <div class="menu">
-                <label for="slide-dot-1"></label>
-                <label for="slide-dot-2"></label>
-                <label for="slide-dot-3"></label>
-                <label for="slide-dot-4"></label>
-            </div>
-            <input id="slide-dot-1" type="radio" name="slides" checked>
-            <div style="background-image: url('{% static 'img/trener1.jpg' %}');" class="slide slide-1"></div>
-            <input id="slide-dot-2" type="radio" name="slides">
-            <div style="background-image: url('{% static 'img/trener2.jpg' %}');" class="slide slide-2"></div>
-            <input id="slide-dot-3" type="radio" name="slides">
-            <div style="background-image: url('{% static 'img/trener3.jpg' %}');" class="slide slide-3"></div>
-            <input id="slide-dot-4" type="radio" name="slides">
-            <div style="background-image: url('{% static 'img/trener4.jpg' %}');" class="slide slide-4"></div>
+        <div class="fotos">
+            <ul id="body">
+                <input type="radio" name="radio-btn" id="img-1" checked/>
+                <li id="img-container">
+                    <div id="img-inner">
+                        <img src="{% static 'img/trener1.jpg' %}">
+                    </div>
+                    <label for="img-6" class="sb-bignav" title="Previous">&#x2039;</label>
+                    <label for="img-2" class="sb-bignav" title="Next">&#x203a;</label>
+                </li>
+
+                <input type="radio" name="radio-btn" id="img-2"/>
+                <li id="img-container">
+                    <div id="img-inner">
+                        <img src="{% static 'img/trener2.jpg' %}">
+                    </div>
+                    <label for="img-1" class="sb-bignav" title="Previous">&#x2039;</label>
+                    <label for="img-3" class="sb-bignav" title="Next">&#x203a;</label>
+                </li>
+
+                <input type="radio" name="radio-btn" id="img-3"/>
+                <li id="img-container">
+                    <div id="img-inner">
+                        <img src="{% static 'img/trener3.jpg' %}">
+                    </div>
+                    <label for="img-2" class="sb-bignav" title="Previous">&#x2039;</label>
+                    <label for="img-4" class="sb-bignav" title="Next">&#x203a;</label>
+                </li>
+            </ul>
         </div>
     </div>
 

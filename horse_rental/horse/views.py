@@ -2,11 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 from django.shortcuts import render, get_object_or_404, redirect
+
+from .forms import OrderTrainerForm
 from .models import Services, Comments, Trainer, Horse, Feedback
 from horse.forms import CommentForm, OrderForm, FeedbackForm
 from django.core.paginator import Paginator, EmptyPage
-
-from horse_reg.models import Profile
 
 
 def main(request):
@@ -62,18 +62,25 @@ def service_detail_view(request, service_id):
 @login_required(login_url='reg:login')
 def order_view(request, order_id):
     order = get_object_or_404(Services, id=order_id)
+    form1 = OrderTrainerForm(order_id)
+    form2 = OrderForm(order_id)
     if request.method == 'POST':
-        form = OrderForm(order_id, request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
+        form1 = OrderTrainerForm(order_id, request.POST)
+        form2 = OrderForm(order_id, request.POST)
+        if form1.is_valid() and 'trainer' in request.POST:
+            form = form1.save(commit=False)
             form.user = request.user
             form.services = order
             form.save()
-            return redirect('/auth/my_orders/{{ user }}/')
-    else:
-        form = OrderForm(order_id)
+            return redirect('reg:my_orders', request.user.username)
+        if form2.is_valid() and 'trainer' not in request.POST:
+            form = form2.save(commit=False)
+            form.user = request.user
+            form.services = order
+            form.save()
+            return redirect('reg:my_orders', request.user.username)
 
-    return render(request, 'horse/service_order.html', {'order': order, 'form': form})
+    return render(request, 'horse/service_order.html', {'order': order, 'form1': form1, 'form2': form2})
 
 
 def trainer_view(request, trainer_id):

@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 from django.core.management import templates
+from django.shortcuts import redirect
+from requests import request
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,34 +151,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'danil22092004@mail.ru'
-# EMAIL_HOST_PASSWORD = os.environ['DJANGO_EMAIL_HOST_PASSWORD']
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-SOCIAL_AUTH_VK_OAUTH2_KEY = '51668953'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = 'LJYVQKRKr1POmGgkDb8Y'
-SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
-
-SITE_ID = 1
-
-ACCOUNT_EMAIL_UNIQUE = True
-ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
-ACCOUNT_LOGIN_URL = 'yourapp:account_login'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = ACCOUNT_LOGIN_URL
-ACCOUNT_PASSWORD_RESET_REDIRECT_URL = ACCOUNT_LOGIN_URL
-ACCOUNT_EMAIL_CONFIRMATION_URL = "yourapp:account_confirm_email"
-ACCOUNT_SETTINGS_REDIRECT_URL = 'yourapp:account_settings'
-ACCOUNT_PASSWORD_CHANGE_REDIRECT_URL = "yourapp:account_password"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

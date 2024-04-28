@@ -14,15 +14,21 @@
     </div>
     <div class="order_blocks">
         <div class="block_form_order">
-            <form action="." class="form_order" method="post">
-                {% csrf_token %}
-                {{ form.date_start }}
-                {% if order.trainer.count != 0 %}
-                    {{ form.trainer }}
-                {% endif %}
-                {{ form.horse }}
-                <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>
-           </form>
+
+            {% if order.trainer.count != 0 %}
+                <form action="." class="form_order" method="post">
+                    {% csrf_token %}
+                    {{ form1.as_p }}
+                    <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>
+               </form>
+            {% else %}
+                <form action="." class="form_order" method="post">
+                    {% csrf_token %}
+                    {{ form2.as_p }}
+                    <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>
+                </form>
+            {% endif %}
+
         </div>
         <div style="display: flex; flex-direction: column">
             <h3 class="txt_banner2 mb-5">Информация заказа:</h3>
