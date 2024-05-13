@@ -23,6 +23,12 @@ li, ul {
     list-style-type: none;
 }
 
+.errorlist.nonfield {
+    color: red;
+    text-align: center;
+    padding-left: 0;
+}
+
 /*Header*/
 
 .header_nav {
@@ -269,7 +275,7 @@ ul, li {
     display: block;
 }
 
-.fotos{
+.fotos {
     display: flex;
     height: 400px;
 

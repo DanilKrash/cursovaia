@@ -19,12 +19,14 @@
                 <form action="." class="form_order" method="post">
                     {% csrf_token %}
                     {{ form1.as_p }}
+                    {{ form.errors }}
                     <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>
                </form>
             {% else %}
                 <form action="." class="form_order" method="post">
                     {% csrf_token %}
                     {{ form2.as_p }}
+                    {{ form.errors }}
                     <button style="width: 200px; align-self: center" class="btn_buy" type="submit">Заказать</button>
                 </form>
             {% endif %}

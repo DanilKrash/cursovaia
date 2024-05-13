@@ -28,7 +28,9 @@
                         <p style="font-size: 42px;" class="txt_service">{{ service.service_sell }}₽</p>
                     {% endif %}
                     <label>
-                        <a href="{% url 'hor:order' order_id=service.id %}"><button class="btn_buy">Заказать</button></a>
+                        <a href="{% url 'hor:order' order_id=service.id %}">
+                            <button class="btn_buy">Заказать</button>
+                        </a>
                     </label>
                 </div>
             </div>
@@ -58,7 +60,11 @@
         {% endif %}
 
         {% for comment in comments %}
-            <h style="display: flex"><p style="padding-right: 4px; font-size: 15px; margin: 0 0 5px 0">{{ comment.user }}</p> <p style="font-size: 14px; color: #AAAAAA; margin: 0 0 5px 0">{{ comment.date }}</p></h> <br>
+            <h style="display: flex">
+                <p style="padding-right: 4px; font-size: 15px; margin: 0 0 5px 0">{{ comment.user }}</p>
+                <p style="font-size: 14px; color: #AAAAAA; margin: 0 0 5px 0">{{ comment.date }}</p>
+            </h>
+            <br>
             <p style="font-size: 17px; margin: 0 0 15px 0">{{ comment.text }}</p> <br>
         {% endfor %}
     </div>

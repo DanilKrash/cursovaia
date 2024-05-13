@@ -4,13 +4,17 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import OrderTrainerForm
-from .models import Services, Comments, Trainer, Horse, Feedback
+from .models import Services, Comments, Trainer, Horse, Feedback, Order
 from horse.forms import CommentForm, OrderForm, FeedbackForm
 from django.core.paginator import Paginator, EmptyPage
 
+from horse_reg.models import Profile
+
 
 def main(request):
-    cont = Feedback.objects.all()
+    cont = Feedback.objects.filter(elect=True)
+    user_ids = list(map(lambda item: item.user.id, cont))
+    prof = Profile.objects.filter(user__id__in=user_ids)
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
@@ -20,7 +24,7 @@ def main(request):
             form = FeedbackForm
     else:
         form = FeedbackForm()
-    return render(request, 'horse/main.html', {'cont': cont, 'form': form})
+    return render(request, 'horse/main.html', {'cont': zip(cont, prof), 'form': form})
 
 
 def service_list_view(request, page_num=1):
@@ -67,27 +71,36 @@ def order_view(request, order_id):
     if request.method == 'POST':
         form1 = OrderTrainerForm(order_id, request.POST)
         form2 = OrderForm(order_id, request.POST)
+        time = request.POST.get('date_start')
         if form1.is_valid() and 'trainer' in request.POST:
-            form = form1.save(commit=False)
-            form.user = request.user
-            form.services = order
-            form.save()
-            return redirect('reg:my_orders', request.user.username)
+            if Order.objects.filter(date_start=time).exists():
+                form1.add_error(None, "На это время уже запланирована услуга другим пользователем")
+            if not Order.objects.filter(date_start=time).exists():
+                form = form1.save(commit=False)
+                form.user = request.user
+                form.services = order
+                form.save()
+                return redirect('reg:my_orders', request.user.username)
         if form2.is_valid() and 'trainer' not in request.POST:
-            form = form2.save(commit=False)
-            form.user = request.user
-            form.services = order
-            form.save()
-            return redirect('reg:my_orders', request.user.username)
+            if Order.objects.filter(date_start=time).exists():
+                form2.add_error(None, "На это время уже запланирована услуга другим пользователем")
+            if not Order.objects.filter(date_start=time).exists():
+                form = form2.save(commit=False)
+                form.user = request.user
+                form.services = order
+                form.save()
+                return redirect('reg:my_orders', request.user.username)
 
     return render(request, 'horse/service_order.html', {'order': order, 'form1': form1, 'form2': form2})
 
 
 def trainer_view(request, trainer_id):
     trainer = get_object_or_404(Trainer, id=trainer_id)
-    return JsonResponse({'sername': trainer.sername, 'date': trainer.date_of_employment, 'image': trainer.image.url, 'lastname': trainer.lastname})
+    return JsonResponse({'sername': trainer.sername, 'date': trainer.date_of_employment, 'image': trainer.image.url,
+                         'lastname': trainer.lastname})
 
 
 def horse_view(request, horses_id):
     horses = get_object_or_404(Horse, id=horses_id)
-    return JsonResponse({'breed': horses.breed, 'birthday': horses.birthday, 'horse_img': horses.horse_img.url, 'status': horses.status})
+    return JsonResponse({'breed': horses.breed, 'birthday': horses.birthday, 'horse_img': horses.horse_img.url,
+                         'status': horses.status})

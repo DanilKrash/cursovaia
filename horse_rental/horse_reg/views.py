@@ -68,9 +68,10 @@ def update_profile(request, username):
 def my_orders(request, username):
     user = get_object_or_404(User, username=username)
     order = Order.objects.filter(user=user)
-    total_sell = sum(order.services.service_sell for order in order)
-    total_sale = sum(order.services.sale for order in order)
-    total = (total_sell * (100 - total_sale) / 100)
-    return render(request, 'horse_reg/my_orders.html', {'user': user, 'order': order, 'total': total})
+    return render(request, 'horse_reg/my_orders.html', {'user': user, 'order': order})
 
 
+def delete_my_orders(request, ord_id):
+    order = Order.objects.get(id=ord_id)
+    order.delete()
+    return redirect('reg:my_orders', request.user.username)
