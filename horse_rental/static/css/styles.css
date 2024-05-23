@@ -546,7 +546,6 @@ input:checked + li > label {
     color: #666;
     font-weight: 500;
     font-size: 18px;
-    padding: 80px;
     line-height: 1.8em;
     margin: 0;
 }
@@ -557,7 +556,7 @@ input:checked + li > label {
     height: 250px;
     flex-direction: column;
     border: 1px solid #bdbdbd;
-    align-items: center;
+    padding: 30px;
     justify-content: center;
     border-radius: 0 20px 0 0;
 }

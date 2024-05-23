@@ -97,7 +97,7 @@ class Horse(models.Model):
 
 class Route(models.Model):
     route_name = models.CharField(max_length=30, verbose_name='Название')
-    length = models.CharField(max_length=50, verbose_name='Протяжённость')
+    length = models.IntegerField(max_length=50, verbose_name='Протяжённость')
     complexity_name = models.ForeignKey(Complexity, on_delete=models.CASCADE, verbose_name='Сложность')
     description = models.TextField(max_length=250, verbose_name='Описание')
 
@@ -177,16 +177,16 @@ class Order(models.Model):
     def __str__(self):
         return f'Заказ №{self.id}'
 
-    def is_time_slot_available(self, date_start, time):
-        end_time = date_start + timedelta(minutes=time)
-        existing_orders = Order.objects.filter(services=self.services)
-
-        for order in existing_orders:
-            if not (date_start <= order.date_start + timedelta(
-                    minutes=order.services.time) or end_time <= order.date_start):
-                return True
-
-        return False
+    # def is_time_slot_available(self):
+    #     end_time = self.date_start + timedelta(minutes=self.services.time)
+    #     existing_orders = Order.objects.filter(services=self.services)
+    #
+    #     for order in existing_orders:
+    #         if not (self.date_start >= order.date_start + timedelta(
+    #                 minutes=order.services.time) or end_time >= order.date_start):
+    #             return True
+    #
+    #     return False
 
     def save_trainer(self):
         self.trainer.is_busy = True

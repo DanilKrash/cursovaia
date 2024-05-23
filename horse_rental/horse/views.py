@@ -73,7 +73,7 @@ def order_view(request, order_id):
         form2 = OrderForm(order_id, request.POST)
         if form1.is_valid() and 'trainer' in request.POST:
             form1.instance.services = order
-            if form1.instance.is_time_slot_available(form1.instance.date_start, form1.instance.services.time):
+            if form1.instance.is_time_slot_available():
                 if not form1.instance.trainer.is_busy:
                     if not form1.instance.horse.is_busy:
                         form1.instance.save_trainer()
@@ -91,20 +91,16 @@ def order_view(request, order_id):
                 form1.add_error(None, "Данное время уже занято")
         if form2.is_valid() and 'trainer' not in request.POST:
             form2.instance.services = order
-            if form2.instance.is_time_slot_available() == True:
-                if not form2.instance.trainer.is_busy:
-                    if not form2.instance.horse.is_busy:
-                        form2.instance.save_trainer()
-                        form2.instance.save_horse()
-                        form = form1.save(commit=False)
-                        form.user = request.user
-                        form.services = order
-                        form.save()
-                        return redirect('reg:my_orders', request.user.username)
-                    else:
-                        form2.add_error(None, "Данная лошадь уже занята")
+            if form2.instance.is_time_slot_available():
+                if not form2.instance.horse.is_busy:
+                    form2.instance.save_horse()
+                    form = form2.save(commit=False)
+                    form.user = request.user
+                    form.services = order
+                    form.save()
+                    return redirect('reg:my_orders', request.user.username)
                 else:
-                    form2.add_error(None, "Данный тренер уже занят")
+                    form2.add_error(None, "Данная лошадь уже занята")
             else:
                 form2.add_error(None, "Данное время уже занято")
 

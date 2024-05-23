@@ -17,6 +17,16 @@
             <div class="more_info_serv">
                 <div class="txt_info_serv1">
                     <p class="detail_desc">{{ service.route.description }}</p>
+                    <div class="d-flex">
+                        {% if not service.route.length < 1 %}
+                            <p class="fw-bold m-2">Протяжённость маршрута: <span class="text-danger">{{ service.route.length }} м.</span></p>
+                            <p class="fw-bold m-2">Сложность маршрута: <span class="text-danger">{{ service.training.complexity_name }}</span></p>
+                        {% else %}
+                            <p></p>
+                        {% endif %}
+                        <p class="fw-bold m-2">Продолжительность услуги: <span class="text-danger">{{ service.time }} мин.</span></p>
+                        <p class="fw-bold m-2">Тип услуги: <span class="text-danger">{{ service.training.types_training_name }}</span></p>
+                    </div>
                 </div>
                 <div class="txt_info_serv2">
                     {% if service.sale %}
