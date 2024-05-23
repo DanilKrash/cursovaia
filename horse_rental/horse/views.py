@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import OrderTrainerForm
-from .models import Services, Comments, Trainer, Horse, Feedback, Order
+from .models import Services, Comments, Trainer, Horse, Feedback
 from horse.forms import CommentForm, OrderForm, FeedbackForm
 from django.core.paginator import Paginator, EmptyPage
 
@@ -71,25 +71,42 @@ def order_view(request, order_id):
     if request.method == 'POST':
         form1 = OrderTrainerForm(order_id, request.POST)
         form2 = OrderForm(order_id, request.POST)
-        time = request.POST.get('date_start')
         if form1.is_valid() and 'trainer' in request.POST:
-            if Order.objects.filter(date_start=time).exists():
-                form1.add_error(None, "На это время уже запланирована услуга другим пользователем")
-            if not Order.objects.filter(date_start=time).exists():
-                form = form1.save(commit=False)
-                form.user = request.user
-                form.services = order
-                form.save()
-                return redirect('reg:my_orders', request.user.username)
+            form1.instance.services = order
+            if form1.instance.is_time_slot_available(form1.instance.date_start, form1.instance.services.time):
+                if not form1.instance.trainer.is_busy:
+                    if not form1.instance.horse.is_busy:
+                        form1.instance.save_trainer()
+                        form1.instance.save_horse()
+                        form = form1.save(commit=False)
+                        form.user = request.user
+                        form.services = order
+                        form.save()
+                        return redirect('reg:my_orders', request.user.username)
+                    else:
+                        form1.add_error(None, "Данная лошадь уже занята")
+                else:
+                    form1.add_error(None, "Данный тренер уже занят")
+            else:
+                form1.add_error(None, "Данное время уже занято")
         if form2.is_valid() and 'trainer' not in request.POST:
-            if Order.objects.filter(date_start=time).exists():
-                form2.add_error(None, "На это время уже запланирована услуга другим пользователем")
-            if not Order.objects.filter(date_start=time).exists():
-                form = form2.save(commit=False)
-                form.user = request.user
-                form.services = order
-                form.save()
-                return redirect('reg:my_orders', request.user.username)
+            form2.instance.services = order
+            if form2.instance.is_time_slot_available() == True:
+                if not form2.instance.trainer.is_busy:
+                    if not form2.instance.horse.is_busy:
+                        form2.instance.save_trainer()
+                        form2.instance.save_horse()
+                        form = form1.save(commit=False)
+                        form.user = request.user
+                        form.services = order
+                        form.save()
+                        return redirect('reg:my_orders', request.user.username)
+                    else:
+                        form2.add_error(None, "Данная лошадь уже занята")
+                else:
+                    form2.add_error(None, "Данный тренер уже занят")
+            else:
+                form2.add_error(None, "Данное время уже занято")
 
     return render(request, 'horse/service_order.html', {'order': order, 'form1': form1, 'form2': form2})
 
@@ -103,4 +120,4 @@ def trainer_view(request, trainer_id):
 def horse_view(request, horses_id):
     horses = get_object_or_404(Horse, id=horses_id)
     return JsonResponse({'breed': horses.breed, 'birthday': horses.birthday, 'horse_img': horses.horse_img.url,
-                         'status': horses.status})
+                         'status': horses.is_busy})

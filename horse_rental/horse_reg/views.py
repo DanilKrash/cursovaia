@@ -73,5 +73,7 @@ def my_orders(request, username):
 
 def delete_my_orders(request, ord_id):
     order = Order.objects.get(id=ord_id)
+    order.delete_trainer()
+    order.delete_horse()
     order.delete()
     return redirect('reg:my_orders', request.user.username)

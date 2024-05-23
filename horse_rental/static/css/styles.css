@@ -851,13 +851,11 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
-    width: 500px;
     background: #ffffff;
     box-shadow: 0 8px 30px 15px rgb(0 0 0 / 30%);
     border-radius: 10px;
     justify-content: center;
-    padding: 10px;
+    padding: 50px;
 }
 
 .form_order {
@@ -915,3 +913,4 @@ p {
     border-radius: 10px;
     justify-content: center;
 }
+

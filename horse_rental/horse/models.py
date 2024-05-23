@@ -1,7 +1,10 @@
+from audioop import error
+from datetime import timedelta
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth import get_user_model
-
-from horse_reg.models import Profile
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -59,6 +62,7 @@ class Trainer(models.Model):
     lastname = models.CharField(max_length=30, verbose_name='Отчество', blank=True)
     date_of_employment = models.DateField(auto_now_add=False, verbose_name='Дата устройства')
     types_training_name = models.ForeignKey(Types_of_training, on_delete=models.CASCADE, verbose_name='Виды тренировок')
+    is_busy = models.BooleanField(default=False, verbose_name='Занят')
 
     class Meta:
         ordering = ('name',)
@@ -78,9 +82,9 @@ class Horse(models.Model):
     horse_name = models.CharField(max_length=30, verbose_name='Имя')
     horse_img = models.ImageField(upload_to='%Y/%m/%d/', verbose_name='Фото')
     breed = models.CharField(max_length=30, verbose_name='Порода')
-    status = models.CharField(max_length=50, verbose_name='Статус')
     birthday = models.DateField(auto_now_add=False, verbose_name='День рождения')
     trainer = models.ManyToManyField(Trainer, verbose_name='Тренер')
+    is_busy = models.BooleanField(default=False, verbose_name='Занята')
 
     class Meta:
         ordering = ('horse_name',)
@@ -115,6 +119,7 @@ class Services(models.Model):
     trainer = models.ManyToManyField(Trainer, verbose_name='Тренер', blank=True, symmetrical=True)
     training = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
+    time = models.PositiveIntegerField(verbose_name='Время оказания услуги')
 
     def __str__(self):
         return self.service_name
@@ -171,3 +176,32 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Заказ №{self.id}'
+
+    def is_time_slot_available(self, date_start, time):
+        end_time = date_start + timedelta(minutes=time)
+        existing_orders = Order.objects.filter(services=self.services)
+
+        for order in existing_orders:
+            if not (date_start <= order.date_start + timedelta(
+                    minutes=order.services.time) or end_time <= order.date_start):
+                return True
+
+        return False
+
+    def save_trainer(self):
+        self.trainer.is_busy = True
+        self.trainer.save()
+        return True
+
+    def delete_trainer(self):
+        self.trainer.is_busy = False
+        self.trainer.save()
+
+    def save_horse(self):
+        self.horse.is_busy = True
+        self.horse.save()
+        return True
+
+    def delete_horse(self):
+        self.horse.is_busy = False
+        self.horse.save()

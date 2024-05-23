@@ -31,7 +31,6 @@ $(document).ready(function () {
                 $('.description_horse').append(`<img src="${info.horse_img}" style="width: 300px; border-radius: 10px 10px 0 0;">`)
                 $('.description_horse').append(`<p style="padding: 20px 0 10px 0">Порода: ${info.breed}</p>`)
                 $('.description_horse').append(`<p style="padding: 20px 0 10px 0">День рождения: ${info.birthday}</p>`)
-                $('.description_horse').append(`<p style="padding-bottom: 20px">Статус: ${info.status}</p>`)
             }
         })
     })
