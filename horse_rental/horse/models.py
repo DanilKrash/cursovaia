@@ -1,7 +1,6 @@
-from audioop import error
-from datetime import timedelta
+import datetime
+from datetime import timedelta, time, datetime
 
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -18,6 +17,9 @@ class Feedback(models.Model):
     class Meta:
         verbose_name = 'Пожелание'
         verbose_name_plural = 'Пожелания'
+
+    def __str__(self):
+        return 'Пожелание пользователя - ' + self.user.username
 
 
 class Complexity(models.Model):
@@ -97,7 +99,7 @@ class Horse(models.Model):
 
 class Route(models.Model):
     route_name = models.CharField(max_length=30, verbose_name='Название')
-    length = models.IntegerField(max_length=50, verbose_name='Протяжённость')
+    length = models.IntegerField(verbose_name='Протяжённость')
     complexity_name = models.ForeignKey(Complexity, on_delete=models.CASCADE, verbose_name='Сложность')
     description = models.TextField(max_length=250, verbose_name='Описание')
 
@@ -163,7 +165,8 @@ class Order(models.Model):
 
     services = models.ForeignKey(Services, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Услуга')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
-    date_start = models.DateTimeField(auto_now_add=False, verbose_name='Дата заезда')
+    date_start = models.DateField(auto_now_add=False, verbose_name='Дата заезда')
+    time_start = models.TimeField(auto_now_add=False, verbose_name='Время заезда')
     date_of_create = models.DateTimeField(auto_now=True, verbose_name='Дата заказа')
     trainer = models.ForeignKey(Trainer, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Тренер')
     horse = models.ForeignKey(Horse, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Лошадь')
@@ -177,16 +180,17 @@ class Order(models.Model):
     def __str__(self):
         return f'Заказ №{self.id}'
 
-    # def is_time_slot_available(self):
-    #     end_time = self.date_start + timedelta(minutes=self.services.time)
-    #     existing_orders = Order.objects.filter(services=self.services)
-    #
-    #     for order in existing_orders:
-    #         if not (self.date_start >= order.date_start + timedelta(
-    #                 minutes=order.services.time) or end_time >= order.date_start):
-    #             return True
-    #
-    #     return False
+    def order_availability(self):
+        start_time = timezone.make_aware(timezone.datetime(1, 1, 1, hour=self.time_start.hour, minute=self.time_start.minute))
+        end_time = start_time + timezone.timedelta(minutes=self.services.time)
+        result_time = end_time.time()
+
+        orders = Order.objects.filter(services=self.services, date_start=self.date_start,
+                                      time_start__gt=self.time_start, time_start__lt=result_time)
+        if orders.exists():
+            return False
+        else:
+            return True
 
     def save_trainer(self):
         self.trainer.is_busy = True

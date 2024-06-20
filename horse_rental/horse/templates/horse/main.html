@@ -106,29 +106,28 @@
 
     <div class="mt-5 mb-5">
         <h1 style="font-size: 42px;" class="txt_banner mb-4">Наши лучшие отзывы</h1>
-        {% for item, prof in cont %}
             <div style="width: 100%" class="row d-flex justify-content-center">
                 <div class="col-md-8 col-lg-6">
                     <div class="card shadow-0 border" style="background-color: #f0f2f5;">
-
                         <div class="card-body p-4">
                             <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="justify-content-between">
-                                        <div class="flex-row align-items-center border-radius-10">
-                                            <img style="border-radius: 10px" src="{{ prof.img.url }}"
-                                                 alt="avatar" width="75">
-                                            <p>{{ item.text }}</p>
-                                            <h1 class="small mb-0 ms-2">{{ item.user.username }}</h1>
-                                        </div>
+                                {% for item, prof in cont %}
+                                    <div class="card-body">
+                                        <div class="justify-content-between">
+                                            <div class="flex-row align-items-center border-radius-10">
+                                                <img style="border-radius: 10px" src="{{ prof.img.url }}"
+                                                     alt="avatar" width="75">
+                                                <p>{{ item.text }}</p>
+                                                <h1 class="small mb-0 ms-2">{{ item.user.username }}</h1>
+                                            </div>
 
+                                        </div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
     </div>
 {% endblock %}
