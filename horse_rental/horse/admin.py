@@ -1,14 +1,15 @@
 from django.contrib import admin
-from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments, User, Order, Feedback
+from horse.models import Complexity, Types_of_training, Training, Trainer, Horse, Route, Services, Comments, User, \
+    Order, Feedback
 
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('user', 'date', 'elect')
-    search_fields = ('user', )
+    search_fields = ('user',)
     list_filter = ('date', 'elect')
     readonly_fields = ('date', 'user')
-    list_editable = ('elect', )
+    list_editable = ('elect',)
     fields = ('user', 'date', 'text', 'elect')
 
 
@@ -37,9 +38,10 @@ class TrainingAdmin(admin.ModelAdmin):
 
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sername', 'lastname', 'date_of_employment', 'image')
+    list_display = ('name', 'sername', 'lastname', 'is_busy', 'date_of_employment', 'image')
     search_fields = ('name', 'sername')
     list_filter = ('date_of_employment',)
+    list_editable = ('is_busy',)
 
 
 @admin.register(Horse)
@@ -47,7 +49,7 @@ class HorseAdmin(admin.ModelAdmin):
     list_display = ('horse_name', 'breed', 'is_busy')
     search_fields = ('horse_name', 'breed')
     list_filter = ('birthday',)
-    list_editable = ('is_busy', )
+    list_editable = ('is_busy',)
     filter_horizontal = ('trainer',)
 
 
@@ -61,26 +63,27 @@ class RouteAdmin(admin.ModelAdmin):
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
-    list_display = ('service_name', 'service_img', 'get_trainer', 'get_horse')
+    list_display = ('service_name', 'get_trainer', 'get_horse')
     search_fields = ('service_name',)
     filter_horizontal = ('trainer', 'horse')
 
 
 @admin.register(Comments)
 class CommentsAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date', 'text', 'services')
+    list_display = ('user', 'date', 'services')
     search_fields = ('user',)
-    list_filter = ('date',)
-    readonly_fields = ('date',)
-    list_editable = ('text',)
+    list_filter = ('date', 'services')
+    readonly_fields = ('date', 'user')
     fields = ('user', 'date', 'text', 'services')
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['date_of_create', 'user', 'date_start', 'services', 'status']
+    list_display = ['date_of_create', 'user', 'date_start', 'time_start', 'services', 'status']
     search_fields = ('user', 'services')
     list_filter = ['date_start', 'date_of_create', 'status']
     readonly_fields = ('date_of_create', 'user')
-    list_editable = ('status', )
-    fields = ('user', 'trainer', 'horse', 'date_of_create', 'date_start', 'services', 'status')
+    list_editable = ('status',)
+    fields = ('user', 'date_of_create', 'date_start', 'time_start', 'services', 'status')
+
+

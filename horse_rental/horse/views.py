@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import OrderTrainerForm
-from .models import Services, Comments, Trainer, Horse, Feedback
+from .models import Services, Comments, Trainer, Horse, Feedback, Order
 from horse.forms import CommentForm, OrderForm, FeedbackForm
 from django.core.paginator import Paginator, EmptyPage
 
@@ -71,11 +71,14 @@ def order_view(request, order_id):
     form1 = OrderTrainerForm(order_id)
     form2 = OrderForm(order_id)
     if request.method == 'POST':
+        date_start = request.POST.get('date_start')
+        time_start = request.POST.get('time_start')
         form1 = OrderTrainerForm(order_id, request.POST)
         form2 = OrderForm(order_id, request.POST)
         if form1.is_valid() and 'trainer' in request.POST:
             form1.instance.services = order
-            if form1.instance.order_availability():
+            existing_order = Order.objects.filter(services=order.id, date_start=date_start, time_start=time_start).exists()
+            if not existing_order:
                 if not form1.instance.trainer.is_busy:
                     if not form1.instance.horse.is_busy:
                         form1.instance.save_trainer()
@@ -90,7 +93,8 @@ def order_view(request, order_id):
                 else:
                     form1.add_error(None, "Данный тренер уже занят")
             else:
-                return redirect('reg:profile', request.user.username)
+                form1.add_error(None, "На данное время эта услуга уже занята")
+
         elif form2.is_valid() and 'trainer' not in request.POST:
             form2.instance.services = order
             if not form2.instance.horse.is_busy:

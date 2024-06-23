@@ -121,7 +121,7 @@ class Services(models.Model):
     trainer = models.ManyToManyField(Trainer, verbose_name='Тренер', blank=True, symmetrical=True)
     training = models.ForeignKey(Training, on_delete=models.CASCADE, verbose_name='Тренировки')
     route = models.ForeignKey(Route, on_delete=models.CASCADE, verbose_name='Описание')
-    time = models.PositiveIntegerField(verbose_name='Время оказания услуги')
+    time = models.IntegerField(verbose_name='Время оказания услуги')
 
     def __str__(self):
         return self.service_name
@@ -179,18 +179,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Заказ №{self.id}'
-
-    def order_availability(self):
-        start_time = timezone.make_aware(timezone.datetime(1, 1, 1, hour=self.time_start.hour, minute=self.time_start.minute))
-        end_time = start_time + timezone.timedelta(minutes=self.services.time)
-        result_time = end_time.time()
-
-        orders = Order.objects.filter(services=self.services, date_start=self.date_start,
-                                      time_start__gt=self.time_start, time_start__lt=result_time)
-        if orders.exists():
-            return False
-        else:
-            return True
 
     def save_trainer(self):
         self.trainer.is_busy = True
